@@ -1,0 +1,89 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource/caveat/500.css';
+import '@fontsource/caveat/600.css';
+import '../styles/global.css';
+import SealMark from '../components/SealMark.astro';
+import { SITE, withBase } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE.description } = Astro.props;
+const pageTitle = title ? `${title} · ${SITE.title}` : `${SITE.fullName} · AI 工程师`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+// 当前导航高亮：/blog 开头都算博客
+const path = Astro.url.pathname;
+const isActive = (prefix: string) =>
+  prefix === '/' ? path === '/' || path === '' : path.startsWith(prefix);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.fullName} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href={withBase('/rss.xml')} />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="inner">
+        <a class="brand" href={withBase('/')} aria-label="返回首页">
+          <SealMark size={26} />
+          <span>蔡骥淳</span>
+          <span class="hand">Joe</span>
+        </a>
+        <nav class="site-nav" aria-label="站内导航">
+          <a
+            href={withBase('/work')}
+            data-sec="work"
+            aria-current={isActive('/work') ? 'page' : undefined}>经历</a
+          >
+          <a
+            href={withBase('/projects')}
+            data-sec="projects"
+            aria-current={isActive('/projects') ? 'page' : undefined}>项目</a
+          >
+          <a
+            href={withBase('/blog')}
+            data-sec="blog"
+            aria-current={isActive('/blog') ? 'page' : undefined}>博客</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="inner">
+        <span class="footer-id">
+          <SealMark size={20} />
+          <span>{SITE.fullName}</span>
+        </span>
+        <span>
+          © {new Date().getFullYear()} ·
+          <a href={withBase('/rss.xml')}>RSS</a> ·
+          部署于 GitHub Pages
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>

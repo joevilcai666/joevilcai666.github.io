@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { withBase } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={post.data.title} description={post.data.description ?? post.data.title}>
+  <article class="prose">
+    <span class="eyebrow">post</span>
+    <h1>{post.data.title}</h1>
+    <p class="post-meta">
+      <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+      {post.data.kind === '翻译' && <span class="tag">译</span>}
+      {post.data.tags.map((t) => (
+        <span class="tag t-blog">{t}</span>
+      ))}
+    </p>
+    <Content />
+
+    <hr />
+    <p style="font-size:0.9rem;color:var(--ink-3)">
+      <a href={withBase('/blog/')}>← 回到博客</a> ·
+      <a href={withBase('/rss.xml')}>订阅 RSS</a>
+    </p>
+  </article>
+</BaseLayout>

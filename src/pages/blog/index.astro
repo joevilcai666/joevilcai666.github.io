@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../data/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+---
+
+<BaseLayout title="博客" description="蔡骥淳（Joe）的博客 —— 大模型记忆系统、工程笔记与长文翻译。">
+  <div class="page-head">
+    <span class="eyebrow">writing</span>
+    <h1>博客</h1>
+    <p class="sub">技术笔记与翻译，写给自己，也写给同样在琢磨这些问题的人。</p>
+  </div>
+
+  <ul class="row-list">
+    {
+      posts.map((post) => (
+        <li>
+          <a class="row-link" href={withBase(`/blog/${post.id}/`)}>
+            <span class="row-title">{post.data.title}</span>
+            {post.data.kind === '翻译' && <span class="tag">译</span>}
+            <span class="row-date">{fmt(post.data.pubDate)}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
