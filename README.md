@@ -13,31 +13,37 @@ npm run build     # 构建到 dist/
 npm run preview   # 本地预览构建产物
 ```
 
-## 部署到 GitHub Pages（约 3 分钟）
+## 部署架构（当前已上线）
 
-1. **在 GitHub 上创建仓库**，把本项目推送上去：
+- **仓库**：`joevilcai666/joevilcai666.github.io`（用户站点，网址 `https://joevilcai666.github.io/`）
+- **构建**：推送到 `main` 后，由**本机自托管 runner**（`~/actions-runner/website-runner`，launchd 常驻服务
+  `com.github.actions-runner.website`）执行 `.github/workflows/deploy.yml`：
+  `npm ci` → `npm run build` → 将 `dist/` 强推到 `gh-pages` 分支
+- **发布**：GitHub Pages 从 `gh-pages` 分支根目录发布
+- **不使用** GitHub 托管的 Actions 虚拟机，构建完全跑在自己的 Mac 上
 
-   ```bash
-   cd personal-website
-   git init
-   git add -A
-   git commit -m "init: my personal website"
-   git branch -M main
-   git remote add origin https://github.com/<你的用户名>/<仓库名>.git
-   git push -u origin main
-   ```
+### Runner 运维
 
-2. **修改 `astro.config.mjs`**：
-   - `site`：改为 `https://<你的用户名>.github.io`
-   - `base`：
-     - 仓库叫 `personal-website`（或任意名）→ 保持 `'/personal-website'`（与仓库名一致）
-     - 仓库叫 `<用户名>.github.io` → 改为 `'/'`
+```bash
+# 状态 / 日志
+launchctl list | grep actions-runner
+tail -f ~/actions-runner/website-runner/launchd.log
 
-3. **开启 Pages（GitHub Actions 方式）**：
-   仓库 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**。
+# 重启 / 停止
+launchctl kickstart -k gui/$(id -u)/com.github.actions-runner.website
+launchctl unload ~/Library/LaunchAgents/com.github.actions-runner.website.plist
 
-4. 推送到 `main` 分支即自动部署（`.github/workflows/deploy.yml` 已配好），
-   访问 `https://<用户名>.github.io/<仓库名>/` 查看。
+# 换机器或重装：重新注册
+cd ~/actions-runner/website-runner && ./config.sh --url https://github.com/joevilcai666/joevilcai666.github.io --token <注册令牌>
+```
+
+### 从零重新部署（换仓库/换账号时）
+
+1. 修改 `astro.config.mjs` 的 `site` 和 `base`（用户仓库 base 用 `'/'`，项目仓库用 `'/<仓库名>'`）。
+2. 推送到仓库 `main` 分支（workflow 会自动产出 `gh-pages` 分支）。
+3. 仓库 **Settings → Pages → Build and deployment → Source** 选 **Deploy from a branch**，
+   Branch 选 **gh-pages / (root)**。
+   注：GitHub CLI 的 OAuth 令牌没有 Pages 设置的写权限（API 会 404），这一步只能在网页设置里完成。
 
 ### 使用自定义域名（推荐，国内访问更稳）
 
