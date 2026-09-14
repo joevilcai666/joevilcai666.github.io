@@ -1,0 +1,96 @@
+---
+import { PROJECTS } from '../../data/projects';
+import { UI, t, type Lang } from '../../data/i18n';
+
+const { lang } = Astro.props;
+const ui = UI[lang];
+---
+
+<div class="page-head">
+  <span class="eyebrow">{ui.projectsEyebrow}</span>
+  <h1>{ui.projectsTitle}</h1>
+  <p class="sub">{ui.projectsSub}</p>
+</div>
+
+<div class="project-list">
+  {
+    PROJECTS.map((p) => (
+      <article id={p.id} class="project-card">
+        <header class="project-head">
+          <h2>{p.name}</h2>
+          <span class="tag t-proj">{t(p.status, lang)}</span>
+        </header>
+        <p class="project-tagline">{t(p.tagline, lang)}</p>
+        <p class="project-desc">{t(p.description, lang)}</p>
+        <div class="chips">
+          {p.stack.map((s) => (
+            <span class="chip">{s}</span>
+          ))}
+        </div>
+        {p.links && p.links.length > 0 && (
+          <p class="project-links">
+            {p.links.map((l, i) => (
+              <>
+                {i > 0 && ' · '}
+                <a href={l.href} target="_blank" rel="noopener">
+                  {l.label}
+                </a>
+              </>
+            ))}
+          </p>
+        )}
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.4rem 1.5rem;
+    background: color-mix(in srgb, var(--fill) 40%, var(--paper));
+    scroll-margin-top: 5rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--line-strong);
+  }
+
+  .project-head {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .project-head h2 {
+    font-size: 1.15rem;
+    margin: 0;
+  }
+
+  .project-tagline {
+    margin: 0 0 0.7rem;
+    color: var(--c-proj);
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .project-desc {
+    margin: 0 0 0.9rem;
+    color: var(--ink-2);
+    font-size: 0.95rem;
+  }
+
+  .project-links {
+    margin: 0.8rem 0 0;
+    font-size: 0.9rem;
+  }
+</style>

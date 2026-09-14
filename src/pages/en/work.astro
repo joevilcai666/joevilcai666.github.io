@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkBody from '../../components/bodies/WorkBody.astro';
+import { UI } from '../../data/i18n';
+---
+
+<BaseLayout lang="en" title={UI.en.workTitle} description="Joe Cai's career — AI engineer working on LLM memory systems and agent infrastructure.">
+  <WorkBody lang="en" />
+</BaseLayout>

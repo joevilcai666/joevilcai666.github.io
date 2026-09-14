@@ -1,39 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { WORK } from '../data/work';
+import WorkBody from '../components/bodies/WorkBody.astro';
+import { UI } from '../data/i18n';
 ---
 
-<BaseLayout title="职业经历" description="蔡骥淳（Joe）的职业经历 —— AI 工程师，大模型记忆系统与智能体基础设施方向。">
-  <div class="page-head">
-    <span class="eyebrow">work</span>
-    <h1>职业经历</h1>
-    <p class="sub">做过的岗位、负责过的事、走过的路。</p>
-  </div>
-
-  <ol class="timeline">
-    {
-      WORK.map((item) => (
-        <li class={item.current ? 'current' : ''}>
-          <p class="when">{item.period}</p>
-          <h2>{item.role}</h2>
-          <p class="org">{item.org}</p>
-          <p>{item.summary}</p>
-          {item.highlights.length > 0 && (
-            <ul>
-              {item.highlights.map((h) => (
-                <li>{h}</li>
-              ))}
-            </ul>
-          )}
-          {item.stack.length > 0 && (
-            <div class="chips">
-              {item.stack.map((s) => (
-                <span class="chip">{s}</span>
-              ))}
-            </div>
-          )}
-        </li>
-      ))
-    }
-  </ol>
+<BaseLayout lang="zh" title={UI.zh.workTitle} description="蔡骥淳（Joe）的职业经历 —— AI 工程师，大模型记忆系统与智能体基础设施方向。">
+  <WorkBody lang="zh" />
 </BaseLayout>

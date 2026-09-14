@@ -1,48 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { withBase } from '../data/site';
+import HomeBody from '../components/bodies/HomeBody.astro';
+import { UI } from '../data/i18n';
 ---
 
-<BaseLayout>
-  <section class="hero">
-    <span class="eyebrow">Hi, I'm Joe</span>
-    <h1 class="name">蔡骥淳 <span class="hand">Joe Cai</span></h1>
-    <p class="now">AI 工程师 · 大模型记忆系统 & 智能体基础设施</p>
-  </section>
-
-  <section class="prose-home" style="margin-top:1.8rem">
-    <p>
-      我关注一个问题：<a href={withBase('/projects/#memloom')}>让模型记住人</a>。
-      对话结束之后，模型能不能记得住、想得起、用得上？为此我在做
-      <a href={withBase('/projects/#memloom')}>MemLoom</a>
-      —— 一套把 LLM 从热路径上挪出去的记忆系统；同时持续对比评测主流方案（HMS、mem0、EgoLife）。
-    </p>
-    <p>
-      我相信克制的设计和扎实的工程是同一件事：把复杂性收进去，把简洁留给使用者。
-      偶尔也做点小而美的东西，比如信纸质感的微信小程序原型「<a href={withBase('/projects/')}>回信</a>」。
-    </p>
-    <p>
-      平时写点<a href={withBase('/blog/')}>技术笔记</a>，也翻译喜欢的长文。
-      关于职业选择，我译过一篇很喜欢的文章：<a href={withBase('/blog/pick-a-career/')}
-        >《如何选择一份真正适合你的职业》</a
-      >。
-    </p>
-  </section>
-
-  <section class="home-section">
-    <h2>指引</h2>
-    <ul class="link-row">
-      <li><a href={withBase('/work')}>职业经历</a></li>
-      <li><a href={withBase('/projects/')}>项目</a></li>
-      <li><a href={withBase('/blog/')}>博客</a></li>
-    </ul>
-  </section>
-
-  <section class="home-section">
-    <h2>找到我</h2>
-    <ul class="link-row">
-      <li><a href="https://github.com/jichuncai" target="_blank" rel="noopener">GitHub</a></li>
-      <li><a href="mailto:joe@example.com">Email</a></li>
-    </ul>
-  </section>
+<BaseLayout lang="zh" description={UI.zh.description}>
+  <HomeBody lang="zh" />
 </BaseLayout>

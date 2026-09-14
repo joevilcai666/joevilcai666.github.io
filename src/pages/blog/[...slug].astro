@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { withBase } from '../../data/site';
+import { UI } from '../../data/i18n';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -18,13 +19,13 @@ const fmt = (d: Date) =>
   d.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description ?? post.data.title}>
+<BaseLayout lang="zh" title={post.data.title} description={post.data.description ?? post.data.title}>
   <article class="prose">
-    <span class="eyebrow">post</span>
+    <span class="eyebrow">{UI.zh.postEyebrow}</span>
     <h1>{post.data.title}</h1>
     <p class="post-meta">
       <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
-      {post.data.kind === '翻译' && <span class="tag">译</span>}
+      {post.data.kind === '翻译' && <span class="tag">{UI.zh.translatedTag}</span>}
       {post.data.tags.map((t) => (
         <span class="tag t-blog">{t}</span>
       ))}
@@ -33,8 +34,8 @@ const fmt = (d: Date) =>
 
     <hr />
     <p style="font-size:0.9rem;color:var(--ink-3)">
-      <a href={withBase('/blog/')}>← 回到博客</a> ·
-      <a href={withBase('/rss.xml')}>订阅 RSS</a>
+      <a href={withBase('/blog/')}>{UI.zh.postBack}</a> ·
+      <a href={withBase('/rss.xml')}>{UI.zh.postRss}</a>
     </p>
   </article>
 </BaseLayout>

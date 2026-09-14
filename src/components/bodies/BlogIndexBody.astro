@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../../data/site';
+import { UI, type Lang } from '../../data/i18n';
+
+interface Props {
+  lang: Lang;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { lang, posts } = Astro.props;
+const ui = UI[lang];
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-CA'); // 2026-09-02，中英文读者都可读
+---
+
+<div class="page-head">
+  <span class="eyebrow">{ui.blogEyebrow}</span>
+  <h1>{ui.blogTitle}</h1>
+  <p class="sub">{ui.blogSub}</p>
+</div>
+
+<ul class="row-list">
+  {
+    posts.map((post) => (
+      <li>
+        <a class="row-link" href={withBase(`/blog/${post.id}/`)}>
+          <span class="row-title">{post.data.title}</span>
+          {post.data.kind === '翻译' && <span class="tag">{ui.translatedTag}</span>}
+          <span class="row-date">{fmt(post.data.pubDate)}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

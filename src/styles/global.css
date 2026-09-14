@@ -1,20 +1,20 @@
 /* ============================================================
-   设计系统 —— 纸·墨·封蜡
-   暖纸白底、墨色文字、封蜡红唯一强调色
+   设计系统 —— 白·墨·封蜡
+   纯白底、墨色文字、封蜡红唯一强调色
    分域色：博客·靛青 / 经历·黛绿 / 项目·檀紫
    ============================================================ */
 
 :root {
-  --paper: #fdfcfa;
-  --ink: #1c1917;
-  --ink-2: #56504a;
-  --ink-3: #a39d95;
+  --paper: #ffffff;
+  --ink: #18181b;
+  --ink-2: #52525b;
+  --ink-3: #a1a1aa;
 
-  --fill: #f5f4f0;
-  --fill-hover: #eeece6;
-  --fill-active: #e6e3db;
-  --line: #e8e6e0;
-  --line-strong: #d6d2c9;
+  --fill: #f4f4f5;
+  --fill-hover: #ebebec;
+  --fill-active: #e0e0e2;
+  --line: #e8e8ea;
+  --line-strong: #d4d4d6;
 
   --seal: #b3432b;
   --seal-deep: #93361f;
@@ -37,16 +37,16 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #16140f;
-    --ink: #e9e5dd;
-    --ink-2: #a49e93;
-    --ink-3: #6e6960;
+    --paper: #0a0a0a;
+    --ink: #fafafa;
+    --ink-2: #a1a1aa;
+    --ink-3: #71717a;
 
-    --fill: #201e18;
-    --fill-hover: #292620;
-    --fill-active: #33302a;
-    --line: #2b2922;
-    --line-strong: #3d3a32;
+    --fill: #111111;
+    --fill-hover: #171717;
+    --fill-active: #1e1e1e;
+    --line: #1e1e1e;
+    --line-strong: #2e2e2e;
 
     --seal: #d05a3f;
     --seal-deep: #e0704f;

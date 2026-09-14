@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogIndexBody from '../../../components/bodies/BlogIndexBody.astro';
+import { getCollection } from 'astro:content';
+import { UI } from '../../../data/i18n';
+
+// 文章本身以中文写作为主，英文版列表直接链到中文文章
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout lang="en" title={UI.en.blogTitle} description={UI.en.blogSub}>
+  <BlogIndexBody lang="en" posts={posts} />
+</BaseLayout>

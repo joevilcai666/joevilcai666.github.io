@@ -1,0 +1,40 @@
+---
+import { WORK } from '../../data/work';
+import { UI, t, type Lang } from '../../data/i18n';
+
+const { lang } = Astro.props;
+const ui = UI[lang];
+---
+
+<div class="page-head">
+  <span class="eyebrow">{ui.workEyebrow}</span>
+  <h1>{ui.workTitle}</h1>
+  <p class="sub">{ui.workSub}</p>
+</div>
+
+<ol class="timeline">
+  {
+    WORK.map((item) => (
+      <li class={item.current ? 'current' : ''}>
+        <p class="when">{item.period}</p>
+        <h2>{t(item.role, lang)}</h2>
+        <p class="org">{t(item.org, lang)}</p>
+        <p>{t(item.summary, lang)}</p>
+        {item.highlights.length > 0 && (
+          <ul>
+            {item.highlights.map((h) => (
+              <li>{t(h, lang)}</li>
+            ))}
+          </ul>
+        )}
+        {item.stack.length > 0 && (
+          <div class="chips">
+            {item.stack.map((s) => (
+              <span class="chip">{s}</span>
+            ))}
+          </div>
+        )}
+      </li>
+    ))
+  }
+</ol>

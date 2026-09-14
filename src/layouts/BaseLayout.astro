@@ -5,24 +5,37 @@ import '@fontsource/caveat/600.css';
 import '../styles/global.css';
 import SealMark from '../components/SealMark.astro';
 import { SITE, withBase } from '../data/site';
+import { UI, counterpartPath, hasCounterpart, type Lang } from '../data/i18n';
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: Lang;
 }
 
-const { title, description = SITE.description } = Astro.props;
-const pageTitle = title ? `${title} · ${SITE.title}` : `${SITE.fullName} · AI 工程师`;
+const { lang = 'zh', title } = Astro.props;
+const ui = UI[lang];
+const description = Astro.props.description ?? ui.description;
+const pageTitle = title ? `${title} · ${SITE.title}` : `${SITE.fullName} · ${ui.siteTagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
 // 当前导航高亮：/blog 开头都算博客
 const path = Astro.url.pathname;
 const isActive = (prefix: string) =>
   prefix === '/' ? path === '/' || path === '' : path.startsWith(prefix);
+
+// 语言切换：中文在根路径，英文在 /en/ 下
+const prefix = lang === 'en' ? '/en' : '';
+const langToggleHref = withBase(counterpartPath(path, lang));
+
+// hreflang 双语互指（仅限有对侧版本的页面）
+const hasAlt = hasCounterpart(path);
+const altZh = new URL(withBase(counterpartPath(path, 'en')), Astro.site);
+const altEn = new URL(withBase(counterpartPath(path, 'zh')), Astro.site);
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={ui.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,6 +43,9 @@ const isActive = (prefix: string) =>
     <meta name="description" content={description} />
     <meta name="author" content={SITE.fullName} />
     <link rel="canonical" href={canonical} />
+    {hasAlt && <link rel="alternate" hreflang="zh-CN" href={altZh} />}
+    {hasAlt && <link rel="alternate" hreflang="en" href={altEn} />}
+    {hasAlt && <link rel="alternate" hreflang="x-default" href={altZh} />}
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="alternate" type="application/rss+xml" title="RSS" href={withBase('/rss.xml')} />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
@@ -38,31 +54,35 @@ const isActive = (prefix: string) =>
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
     <meta name="twitter:card" content="summary" />
   </head>
   <body>
     <header class="site-header">
       <div class="inner">
-        <a class="brand" href={withBase('/')} aria-label="返回首页">
+        <a class="brand" href={withBase(lang === 'en' ? '/en/' : '/')} aria-label="返回首页 / Home">
           <SealMark size={26} />
           <span>蔡骥淳</span>
           <span class="hand">Joe</span>
         </a>
-        <nav class="site-nav" aria-label="站内导航">
+        <nav class="site-nav" aria-label="站内导航 / Site navigation">
           <a
-            href={withBase('/work')}
+            href={withBase(`${prefix}/work`)}
             data-sec="work"
-            aria-current={isActive('/work') ? 'page' : undefined}>经历</a
+            aria-current={isActive(`${prefix}/work`) ? 'page' : undefined}>{ui.navWork}</a
           >
           <a
-            href={withBase('/projects')}
+            href={withBase(`${prefix}/projects`)}
             data-sec="projects"
-            aria-current={isActive('/projects') ? 'page' : undefined}>项目</a
+            aria-current={isActive(`${prefix}/projects`) ? 'page' : undefined}>{ui.navProjects}</a
           >
           <a
-            href={withBase('/blog')}
+            href={withBase(`${prefix}/blog/`)}
             data-sec="blog"
-            aria-current={isActive('/blog') ? 'page' : undefined}>博客</a
+            aria-current={isActive(`${prefix}/blog`) ? 'page' : undefined}>{ui.navBlog}</a
+          >
+          <a class="lang-toggle" href={langToggleHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'}
+            aria-label="Switch language">{ui.navLangToggle}</a
           >
         </nav>
       </div>
@@ -81,9 +101,28 @@ const isActive = (prefix: string) =>
         <span>
           © {new Date().getFullYear()} ·
           <a href={withBase('/rss.xml')}>RSS</a> ·
-          部署于 GitHub Pages
+          {ui.footerHosted}
         </span>
       </div>
     </footer>
   </body>
 </html>
+
+<style>
+  .lang-toggle {
+    color: var(--ink-3);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    transition:
+      color 0.18s ease,
+      border-color 0.18s ease;
+  }
+
+  .lang-toggle:hover {
+    color: var(--seal);
+    border-color: var(--seal);
+  }
+</style>

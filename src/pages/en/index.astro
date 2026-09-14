@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeBody from '../../components/bodies/HomeBody.astro';
+import { UI } from '../../data/i18n';
+---
+
+<BaseLayout lang="en" description={UI.en.description}>
+  <HomeBody lang="en" />
+</BaseLayout>
