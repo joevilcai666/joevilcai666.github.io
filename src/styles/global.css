@@ -33,29 +33,9 @@
 
   --maxw: 42rem;
   --pad-x: clamp(1.25rem, 5vw, 2rem);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #0a0a0a;
-    --ink: #fafafa;
-    --ink-2: #a1a1aa;
-    --ink-3: #71717a;
-
-    --fill: #111111;
-    --fill-hover: #171717;
-    --fill-active: #1e1e1e;
-    --line: #1e1e1e;
-    --line-strong: #2e2e2e;
-
-    --seal: #d05a3f;
-    --seal-deep: #e0704f;
-    --seal-soft: rgba(208, 90, 63, 0.14);
-
-    --c-blog: #8b9cc7;
-    --c-work: #6aab9f;
-    --c-proj: #b384ae;
-  }
+  /* 固定浅色主题：不随系统深色模式切换（如需恢复暗色，重新加回 prefers-color-scheme: dark 变量块） */
+  color-scheme: light;
 }
 
 /* ---------- 基础 ---------- */
