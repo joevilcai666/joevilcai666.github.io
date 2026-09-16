@@ -4,6 +4,7 @@ import '@fontsource/caveat/500.css';
 import '@fontsource/caveat/600.css';
 import '../styles/global.css';
 import SealMark from '../components/SealMark.astro';
+import Icon from '../components/icons/Icon.astro';
 import { SITE, withBase } from '../data/site';
 import { UI, counterpartPath, hasCounterpart, type Lang } from '../data/i18n';
 
@@ -11,22 +12,22 @@ interface Props {
   title?: string;
   description?: string;
   lang?: Lang;
+  /** 首页不渲染任何角落导航，纯内容呈现 */
+  home?: boolean;
 }
 
-const { lang = 'zh', title } = Astro.props;
+const { lang = 'zh', title, home = false } = Astro.props;
 const ui = UI[lang];
 const description = Astro.props.description ?? ui.description;
 const pageTitle = title ? `${title} · ${SITE.title}` : `${SITE.fullName} · ${ui.siteTagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
-// 当前导航高亮：/blog 开头都算博客
-const path = Astro.url.pathname;
-const isActive = (prefix: string) =>
-  prefix === '/' ? path === '/' || path === '' : path.startsWith(prefix);
-
 // 语言切换：中文在根路径，英文在 /en/ 下
-const prefix = lang === 'en' ? '/en' : '';
+const path = Astro.url.pathname;
 const langToggleHref = withBase(counterpartPath(path, lang));
+const hreflangAlt = lang === 'zh' ? 'en' : 'zh-CN';
+const switchLabel = lang === 'zh' ? 'Switch to English' : '切换到中文';
+const homeHref = withBase(lang === 'en' ? '/en/' : '/');
 
 // hreflang 双语互指（仅限有对侧版本的页面）
 const hasAlt = hasCounterpart(path);
@@ -59,71 +60,24 @@ const altEn = new URL(withBase(counterpartPath(path, 'zh')), Astro.site);
     <meta name="twitter:card" content="summary" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="inner">
-        <a class="brand" href={withBase(lang === 'en' ? '/en/' : '/')} aria-label="返回首页 / Home">
-          <SealMark size={26} />
-          <span>蔡骥淳</span>
-          <span class="hand">Joe</span>
-        </a>
-        <nav class="site-nav" aria-label="站内导航 / Site navigation">
-          <a
-            href={withBase(`${prefix}/work`)}
-            data-sec="work"
-            aria-current={isActive(`${prefix}/work`) ? 'page' : undefined}>{ui.navWork}</a
-          >
-          <a
-            href={withBase(`${prefix}/projects`)}
-            data-sec="projects"
-            aria-current={isActive(`${prefix}/projects`) ? 'page' : undefined}>{ui.navProjects}</a
-          >
-          <a
-            href={withBase(`${prefix}/blog/`)}
-            data-sec="blog"
-            aria-current={isActive(`${prefix}/blog`) ? 'page' : undefined}>{ui.navBlog}</a
-          >
-          <a class="lang-toggle" href={langToggleHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'}
-            aria-label="Switch language">{ui.navLangToggle}</a
-          >
-        </nav>
-      </div>
-    </header>
+    {
+      home ? null : (
+        <div class="corner">
+          <a class="corner-home" href={homeHref} aria-label={lang === 'en' ? 'Home' : '回到首页'}>
+            <SealMark size={24} />
+          </a>
+          <a class="corner-lang" href={langToggleHref} hreflang={hreflangAlt} aria-label={switchLabel}>
+            <Icon name="lang" />
+            {ui.langToggle}
+          </a>
+        </div>
+      )
+    }
 
     <main>
       <slot />
     </main>
 
-    <footer class="site-footer">
-      <div class="inner">
-        <span class="footer-id">
-          <SealMark size={20} />
-          <span>{SITE.fullName}</span>
-        </span>
-        <span>
-          © {new Date().getFullYear()} ·
-          <a href={withBase('/rss.xml')}>RSS</a> ·
-          {ui.footerHosted}
-        </span>
-      </div>
-    </footer>
+    <footer class="colophon">© {new Date().getFullYear()} Joe</footer>
   </body>
 </html>
-
-<style>
-  .lang-toggle {
-    color: var(--ink-3);
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    padding: 0.1rem 0.6rem;
-    font-size: 0.8rem;
-    line-height: 1.5;
-    transition:
-      color 0.18s ease,
-      border-color 0.18s ease;
-  }
-
-  .lang-toggle:hover {
-    color: var(--seal);
-    border-color: var(--seal);
-  }
-</style>

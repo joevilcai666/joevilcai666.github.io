@@ -22,11 +22,6 @@ const ui = UI[lang];
         </header>
         <p class="project-tagline">{t(p.tagline, lang)}</p>
         <p class="project-desc">{t(p.description, lang)}</p>
-        <div class="chips">
-          {p.stack.map((s) => (
-            <span class="chip">{s}</span>
-          ))}
-        </div>
         {p.links && p.links.length > 0 && (
           <p class="project-links">
             {p.links.map((l, i) => (
@@ -56,7 +51,7 @@ const ui = UI[lang];
     border-radius: 14px;
     padding: 1.4rem 1.5rem;
     background: color-mix(in srgb, var(--fill) 40%, var(--paper));
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 1.5rem;
     transition: border-color 0.2s ease;
   }
 

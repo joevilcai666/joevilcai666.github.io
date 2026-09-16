@@ -11,15 +11,11 @@ export const t = (item: Localized, lang: Lang): string => item[lang];
 
 // ---------- 界面文案 ----------
 export const UI: Record<Lang, {
-  navWork: string;
-  navProjects: string;
-  navBlog: string;
-  navLangToggle: string; // 切到另一种语言的链接文字
+  langToggle: string; // 切到另一种语言的链接文字
   htmlLang: string;
   siteTagline: string;
   description: string;
-  homeEyebrow: string;
-  homeTagline: string;
+  homeGreeting: string;
   homeDir: string;
   homeFind: string;
   homeWork: string;
@@ -37,19 +33,14 @@ export const UI: Record<Lang, {
   postEyebrow: string;
   postBack: string;
   postRss: string;
-  footerHosted: string;
   translatedTag: string; // 「译」标记
 }> = {
   zh: {
-    navWork: '经历',
-    navProjects: '项目',
-    navBlog: '博客',
-    navLangToggle: 'EN',
+    langToggle: 'English',
     htmlLang: 'zh-CN',
     siteTagline: 'AI 工程师',
     description: '蔡骥淳（Joe）的个人网站 —— AI 工程师，关注大模型记忆系统与智能体基础设施。博客、项目与职业经历。',
-    homeEyebrow: "Hi, I'm Joe",
-    homeTagline: 'AI 工程师 · 大模型记忆系统 & 智能体基础设施',
+    homeGreeting: "Hi, I'm Joe",
     homeDir: '指引',
     homeFind: '找到我',
     homeWork: '职业经历',
@@ -67,19 +58,14 @@ export const UI: Record<Lang, {
     postEyebrow: 'post',
     postBack: '← 回到博客',
     postRss: '订阅 RSS',
-    footerHosted: '部署于 GitHub Pages',
     translatedTag: '译',
   },
   en: {
-    navWork: 'Work',
-    navProjects: 'Projects',
-    navBlog: 'Blog',
-    navLangToggle: '中文',
+    langToggle: '中文',
     htmlLang: 'en',
     siteTagline: 'AI Engineer',
     description: 'Joe Cai (Cai Jichun) — AI engineer working on LLM memory systems and agent infrastructure. Blog, projects and career.',
-    homeEyebrow: "Hi, I'm Joe",
-    homeTagline: 'AI Engineer · LLM memory systems & agent infrastructure',
+    homeGreeting: "Hi, I'm Joe",
     homeDir: 'Explore',
     homeFind: 'Find me',
     homeWork: 'Work',
@@ -97,7 +83,6 @@ export const UI: Record<Lang, {
     postEyebrow: 'post',
     postBack: '← All posts',
     postRss: 'Subscribe via RSS',
-    footerHosted: 'Hosted on GitHub Pages',
     translatedTag: '译',
   },
 };

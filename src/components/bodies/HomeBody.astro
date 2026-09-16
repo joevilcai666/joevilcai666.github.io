@@ -1,58 +1,67 @@
 ---
 import { withBase } from '../../data/site';
-import { UI, type Lang } from '../../data/i18n';
+import { UI, counterpartPath, type Lang } from '../../data/i18n';
+import Icon from '../icons/Icon.astro';
 
 const { lang } = Astro.props;
 const ui = UI[lang];
 const base = lang === 'en' ? '/en' : '';
+const langToggleHref = withBase(counterpartPath(Astro.url.pathname, lang));
 ---
 
 <section class="hero">
-  <span class="eyebrow">{ui.homeEyebrow}</span>
-  <h1 class="name">蔡骥淳 <span class="hand">Joe Cai</span></h1>
-  <p class="now">{ui.homeTagline}</p>
+  <h1 class="hi">{ui.homeGreeting}</h1>
 </section>
 
 {
   lang === 'zh' ? (
-    <section class="prose-home" style="margin-top:1.8rem">
+    <section class="prose-home">
       <p>
-        我关注一个问题：<a href={withBase('/projects/#memloom')}>让模型记住人</a>。
-        对话结束之后，模型能不能记得住、想得起、用得上？为此我在做
-        <a href={withBase('/projects/#memloom')}>MemLoom</a>
-        —— 一套把 LLM 从热路径上挪出去的记忆系统；同时持续对比评测主流方案（HMS、mem0、EgoLife）。
+        这几年一直在 AI 创业公司做产品。工作后才发现，那些本来不值得人持续投入注意力、却不得不处理的事情，反而持续占用人的时间。于是我正在做
+        Origin
+        这款产品，替人安排运动和饮食，追踪日常花销，和处理工作上的任务。
       </p>
       <p>
-        我相信克制的设计和扎实的工程是同一件事：把复杂性收进去，把简洁留给使用者。
-        偶尔也做点小而美的东西，比如信纸质感的微信小程序原型「<a href={withBase('/projects/')}>回信</a>」。
+        打磨 Origin
+        时，原本只想把精力放在产品本身，却不断需要反复与编程 agent
+        沟通、排错。这件事让我产生了做第二款产品 Craft
+        的冲动，让人把注意力花在做什么、为什么做、做出来的是不是自己想要的结果上。
       </p>
       <p>
-        平时写点<a href={withBase('/blog/')}>技术笔记</a>，也翻译喜欢的长文。
-        关于职业选择，我译过一篇很喜欢的文章：<a href={withBase('/blog/pick-a-career/')}
-          >《如何选择一份真正适合你的职业》</a
-        >。
+        过去几次创业在没有正反馈的情况下，公司会安排人处理更多任务。这种现象也让我意识到，当一个组织无法降低方向上的不确定性时，很容易转而增加执行上的确定性。这些经历让我长期关注一个问题：什么样的组织环境能让人愿意投入、敢于判断、能够创造？
+      </p>
+      <p>
+        我非常喜欢阅读，他人的文字让我敢于离开不喜欢的工作环境，更主动寻找真正想做的事情。也让我意识到钱可以让我对不喜欢的事情说&ldquo;不&rdquo;。生活中总有让我困惑和好奇的问题，于是我通过写作把模糊的东西想清楚，也许我的视角也能给正在阅读的你多一个参考。
       </p>
     </section>
   ) : (
-    <section class="prose-home" style="margin-top:1.8rem">
+    <section class="prose-home">
       <p>
-        I keep coming back to one question: <a href={withBase('/en/projects/#memloom')}
-          >can models remember people</a
-        >? Long after a conversation ends — can a model recall, retrieve, and actually use what it
-        learned? That's why I'm building <a href={withBase('/en/projects/#memloom')}>MemLoom</a>,
-        a memory system that keeps LLMs off the hot path, while continuously benchmarking
-        mainstream approaches (HMS, mem0, EgoLife).
+        These past few years I've been building products at AI startups. Once I started working,
+        I noticed something: the things that don't deserve anyone's attention — yet still have to
+        be dealt with — are exactly the ones that keep taking up our time. So I'm building Origin,
+        a product that arranges your exercise and meals, tracks your daily spending, and handles
+        your work tasks.
       </p>
       <p>
-        I believe restraint in design and solid engineering are the same discipline: tuck the
-        complexity away, leave the simplicity for the user. Now and then I build small, quiet
-        things — like 「<a href={withBase('/en/projects/')}>回信</a>」, a letter-paper WeChat
-        mini-program prototype.
+        While polishing Origin, I meant to focus on the product itself, but kept getting pulled
+        into back-and-forths with coding agents, debugging. That experience gave me the urge to
+        build a second product, Craft — one that lets people spend their attention on what to do,
+        why to do it, and whether what gets built is actually what they want.
       </p>
       <p>
-        I write <a href={withBase('/en/blog/')}>technical notes</a> and translate long-form essays
-        I love. On career choices, I translated a favorite:
-        <a href={withBase('/blog/pick-a-career/')}><em>How to Pick a Career (That Actually Fits You)</em></a>.
+        In my past startups, when positive feedback was missing, the company would respond by
+        assigning people more tasks. It made me realize: when an organization can't reduce
+        uncertainty about direction, it tends to increase certainty about execution instead.
+        These experiences left me with a question I keep coming back to: what kind of environment
+        makes people willing to commit, brave enough to judge, and able to create?
+      </p>
+      <p>
+        I love reading. Other people's words gave me the courage to leave work environments I
+        didn't like and go look for what I truly wanted to do. They also made me see that money
+        lets me say &ldquo;no&rdquo; to what I dislike. Life is full of questions that puzzle and
+        intrigue me, so I write to think the vague ones through — and maybe my perspective can
+        offer you, the reader, one more reference.
       </p>
     </section>
   )
@@ -61,16 +70,41 @@ const base = lang === 'en' ? '/en' : '';
 <section class="home-section">
   <h2>{ui.homeDir}</h2>
   <ul class="link-row">
-    <li><a href={withBase(`${base}/work`)}>{ui.homeWork}</a></li>
-    <li><a href={withBase(`${base}/projects/`)}>{ui.homeProjects}</a></li>
-    <li><a href={withBase(`${base}/blog/`)}>{ui.homeBlog}</a></li>
+    <li>
+      <a href={withBase(`${base}/work`)} data-sec="work">
+        <Icon name="work" />{ui.homeWork}
+      </a>
+    </li>
+    <li>
+      <a href={withBase(`${base}/projects/`)} data-sec="projects">
+        <Icon name="projects" />{ui.homeProjects}
+      </a>
+    </li>
+    <li>
+      <a href={withBase(`${base}/blog/`)} data-sec="blog">
+        <Icon name="blog" />{ui.homeBlog}
+      </a>
+    </li>
+    <li>
+      <a href={langToggleHref} data-sec="lang" hreflang={lang === 'zh' ? 'en' : 'zh-CN'} aria-label="Switch language">
+        <Icon name="lang" />{ui.langToggle}
+      </a>
+    </li>
   </ul>
 </section>
 
 <section class="home-section">
   <h2>{ui.homeFind}</h2>
   <ul class="link-row">
-    <li><a href="https://github.com/jichuncai" target="_blank" rel="noopener">GitHub</a></li>
-    <li><a href="mailto:joe@example.com">Email</a></li>
+    <li>
+      <a href="https://github.com/jichuncai" target="_blank" rel="noopener">
+        <Icon name="github" />GitHub
+      </a>
+    </li>
+    <li>
+      <a href="mailto:joe@example.com">
+        <Icon name="mail" />Email
+      </a>
+    </li>
   </ul>
 </section>
