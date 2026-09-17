@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light"><title>HMS 与 mem0：一次记忆系统的全景对比 · Joe Cai</title><meta name="description" content="用同一套评测框架横向拆解 HMS 与 mem0：召回质量、时延成本、可运维性与适用场景。"><meta name="author" content="蔡骥淳 Joe Cai"><link rel="canonical" href="https://joevilcai666.github.io/blog/hms-vs-mem0/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="website"><meta property="og:title" content="HMS 与 mem0：一次记忆系统的全景对比 · Joe Cai"><meta property="og:description" content="用同一套评测框架横向拆解 HMS 与 mem0：召回质量、时延成本、可运维性与适用场景。"><meta property="og:url" content="https://joevilcai666.github.io/blog/hms-vs-mem0/"><meta property="og:locale" content="zh_CN"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/_astro/_slug_.D-a_60xZ.css"></head> <body> <div class="corner"> <a class="corner-home" href="/" aria-label="回到首页"> <svg class="seal-mark" width="24" height="24" viewBox="0 0 64 64" role="img" aria-label="印章：骥"> <rect x="2" y="2" width="60" height="60" rx="12" fill="var(--seal)"></rect> <rect x="5" y="5" width="54" height="54" rx="9.5" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2"></rect> <text x="32" y="45" text-anchor="middle" dominant-baseline="middle" font-family="STKaiti, Kaiti SC, KaiTi, Noto Serif SC, serif" font-size="38" font-weight="700" fill="#fdfcfa">骥</text> </svg> </a> <a class="corner-lang" href="/en/blog/" hreflang="en" aria-label="Switch to English"> <svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg> English </a> </div> <main>  <article class="prose"> <span class="eyebrow">post</span> <h1>HMS 与 mem0：一次记忆系统的全景对比</h1> <p class="post-meta"> <time datetime="2026-08-18T00:00:00.000Z">2026年8月18日</time>  <span class="tag t-blog">记忆系统</span><span class="tag t-blog">评测</span><span class="tag t-blog">mem0</span> </p> <p>选型记忆系统时，最容易犯的错误是只看 demo：几轮对话、几句寒暄，人人都记得住。真正拉开差距的是规模上去之后的表现。</p>
+<h2 id="评测框架">评测框架</h2>
+<p>我用了四个维度：</p>
+<ol>
+<li><strong>召回质量</strong> —— 该想起来的能不能想起来（召回率 / 精确率）；</li>
+<li><strong>时延与成本</strong> —— 记忆操作在热路径上的代价；</li>
+<li><strong>可运维性</strong> —— 部署形态、监控、故障恢复；</li>
+<li><strong>适用场景</strong> —— 什么规模、什么团队适合它。</li>
+</ol>
+<h2 id="几个结论">几个结论</h2>
+<ul>
+<li><strong>HMS（Pro 版）</strong> 强在记忆的全生命周期管理，但热路径上的模型调用让延迟和成本明显抬升，更适合对记忆质量极度敏感、能接受代价的场景；</li>
+<li><strong>mem0（Lite 版）</strong> 轻量易接入，成本可控，但记忆的整理与一致性需要使用方自己补课；</li>
+<li>两者不是优劣关系，而是<strong>工程预算的天平</strong>：你愿意为「记得更准」支付多少延迟和成本。</li>
+</ul>
+<blockquote>
+<p>记忆系统没有银弹，只有与你产品节奏匹配的折中。</p>
+</blockquote>
+<h2 id="完整报告">完整报告</h2>
+<p>详细的指标、用例与决策拆解见完整报告（发布时可附链接或 PDF）。</p>
+<hr>
+<p><em>这是占位样文 —— 你可以把工作区里的对比报告整理成文章发在这里。</em></p> <hr> <p style="font-size:0.9rem;color:var(--ink-3)"> <a href="/blog/">← 回到博客</a> ·
+<a href="/rss.xml">订阅 RSS</a> </p> </article>  </main> <footer class="colophon">© 2026 Joe</footer> </body></html>
