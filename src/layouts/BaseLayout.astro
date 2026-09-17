@@ -19,7 +19,7 @@ interface Props {
 const { lang = 'zh', title, home = false } = Astro.props;
 const ui = UI[lang];
 const description = Astro.props.description ?? ui.description;
-const pageTitle = title ? `${title} · ${SITE.title}` : `${SITE.fullName} · ${ui.siteTagline}`;
+const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
 // 语言切换：中文在根路径，英文在 /en/ 下

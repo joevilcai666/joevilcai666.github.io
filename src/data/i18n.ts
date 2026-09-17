@@ -13,7 +13,6 @@ export const t = (item: Localized, lang: Lang): string => item[lang];
 export const UI: Record<Lang, {
   langToggle: string; // 切到另一种语言的链接文字
   htmlLang: string;
-  siteTagline: string;
   description: string;
   homeGreeting: string;
   homeDir: string;
@@ -38,7 +37,6 @@ export const UI: Record<Lang, {
   zh: {
     langToggle: 'English',
     htmlLang: 'zh-CN',
-    siteTagline: 'AI 工程师',
     description: '蔡骥淳（Joe）的个人网站 —— AI 工程师，关注大模型记忆系统与智能体基础设施。博客、项目与职业经历。',
     homeGreeting: "Hi, I'm Joe",
     homeDir: '指引',
@@ -63,7 +61,6 @@ export const UI: Record<Lang, {
   en: {
     langToggle: '中文',
     htmlLang: 'en',
-    siteTagline: 'AI Engineer',
     description: 'Joe Cai (Cai Jichun) — AI engineer working on LLM memory systems and agent infrastructure. Blog, projects and career.',
     homeGreeting: "Hi, I'm Joe",
     homeDir: 'Explore',

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect x="2" y="2" width="60" height="60" rx="12" fill="#b3432b"/>
   <rect x="5" y="5" width="54" height="54" rx="9.5" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2"/>
-  <text x="32" y="33" text-anchor="middle" dominant-baseline="central" font-family="STKaiti, KaiTi, serif" font-size="38" font-weight="700" fill="#fdfcfa">骥</text>
+  <text x="32" y="33" text-anchor="middle" dominant-baseline="central" font-family="-apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600" fill="#fdfcfa">joe</text>
 </svg>

@@ -3,7 +3,7 @@ export const SITE = {
   cnName: '蔡骥淳',
   enName: 'Joe',
   fullName: '蔡骥淳 Joe Cai',
-  title: '蔡骥淳 · Joe',
+  title: 'Joe Cai',
   description: '蔡骥淳（Joe）的个人网站 —— AI 工程师，关注大模型记忆系统与智能体基础设施。博客、项目与职业经历。',
   // 社交链接（按需增删）
   elsewhere: [
