@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light"><title>MemLoom 设计笔记：为什么把 LLM 挪出热路径 · Joe Cai</title><meta name="description" content="一次记忆系统的构建、迭代与实测：把 LLM 从读写热路径上移出去，用结构化操作换接近零的额外延迟与成本。"><meta name="author" content="蔡骥淳 Joe Cai"><link rel="canonical" href="https://joevilcai666.github.io/blog/memloom-hot-path/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="website"><meta property="og:title" content="MemLoom 设计笔记：为什么把 LLM 挪出热路径 · Joe Cai"><meta property="og:description" content="一次记忆系统的构建、迭代与实测：把 LLM 从读写热路径上移出去，用结构化操作换接近零的额外延迟与成本。"><meta property="og:url" content="https://joevilcai666.github.io/blog/memloom-hot-path/"><meta property="og:locale" content="zh_CN"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/_astro/_slug_.D-a_60xZ.css"></head> <body> <div class="corner"> <a class="corner-home" href="/" aria-label="回到首页"> <svg class="seal-mark" width="24" height="24" viewBox="0 0 64 64" role="img" aria-label="印章：骥"> <rect x="2" y="2" width="60" height="60" rx="12" fill="var(--seal)"></rect> <rect x="5" y="5" width="54" height="54" rx="9.5" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2"></rect> <text x="32" y="45" text-anchor="middle" dominant-baseline="middle" font-family="STKaiti, Kaiti SC, KaiTi, Noto Serif SC, serif" font-size="38" font-weight="700" fill="#fdfcfa">骥</text> </svg> </a> <a class="corner-lang" href="/en/blog/" hreflang="en" aria-label="Switch to English"> <svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg> English </a> </div> <main>  <article class="prose"> <span class="eyebrow">post</span> <h1>MemLoom 设计笔记：为什么把 LLM 挪出热路径</h1> <p class="post-meta"> <time datetime="2026-09-02T00:00:00.000Z">2026年9月2日</time>  <span class="tag t-blog">记忆系统</span><span class="tag t-blog">LLM</span><span class="tag t-blog">MemLoom</span> </p> <p>这是 MemLoom 的第一篇设计笔记。</p>
+<h2 id="问题记忆的代价">问题：记忆的代价</h2>
+<p>大多数「带记忆」的智能体方案，把记忆操作和 LLM 调用绑在了一起——写入前要总结、读取后要重排、定期还要 consolidation。结果是：<strong>每一段有记忆的对话，都在热路径上叠加了至少一次模型调用</strong>。</p>
+<p>延迟翻倍、成本翻倍，记忆反而成了体验的负资产。</p>
+<h2 id="思路热路径上不做生成">思路：热路径上不做生成</h2>
+<p>MemLoom 的核心约束只有一条：<strong>热路径零 LLM</strong>。</p>
+<ul>
+<li><strong>写入</strong>走结构化抽取：对话事件以确定性的方式落成记忆条目，不做生成式总结；</li>
+<li><strong>读取</strong>走索引召回：向量检索 + 时间衰减打分，直接拼上下文；</li>
+<li><strong>整理</strong>（去重、合并、降权）放在离线批处理里做，失败可重放。</li>
+</ul>
+<blockquote>
+<p>记忆系统的价值在「记得准」，不在「写得美」。生成式的总结留给离线，热路径只要快和稳。</p>
+</blockquote>
+<h2 id="实测结果">实测结果</h2>
+<p>在相同的对话负载下对比「每轮带 LLM 记忆操作」的基线：</p>
+<ul>
+<li>额外时延从数百毫秒级降到个位数毫秒级；</li>
+<li>记忆相关 token 成本基本归零；</li>
+<li>召回质量靠评测框架兜底（后续文章展开）。</li>
+</ul>
+<h2 id="下一步">下一步</h2>
+<p>把评测框架单独写一篇：召回率、时延、成本、可运维性四个维度，以及 HMS、mem0、EgoLife 在同一框架下的横向对比。</p>
+<hr>
+<p><em>这是占位样文 —— 发布你自己的文章时，在 <code>src/content/blog/</code> 里新建 Markdown 文件即可。</em></p> <hr> <p style="font-size:0.9rem;color:var(--ink-3)"> <a href="/blog/">← 回到博客</a> ·
+<a href="/rss.xml">订阅 RSS</a> </p> </article>  </main> <footer class="colophon">© 2026 Joe</footer> </body></html>
