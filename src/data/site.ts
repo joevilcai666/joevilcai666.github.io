@@ -4,11 +4,12 @@ export const SITE = {
   enName: 'Joe',
   fullName: '蔡骥淳 Joe Cai',
   title: 'Joe Cai',
-  description: '蔡骥淳（Joe）的个人网站 —— AI 工程师，关注大模型记忆系统与智能体基础设施。博客、项目与职业经历。',
+  description: '蔡骥淳（Joe）的个人网站 —— AI Agent 方向产品负责人，专注 Agent 基础设施与商业化落地。博客、项目与职业经历。',
   // 社交链接（按需增删）
   elsewhere: [
-    { label: 'GitHub', href: 'https://github.com/jichuncai' },
-    { label: 'Email', href: 'mailto:joe@example.com' },
+    { label: 'GitHub', href: 'https://github.com/joevilcai666' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jichun46/' },
+    { label: 'Email', href: 'mailto:jichun.cai@outlook.com' },
     // { label: 'X', href: 'https://x.com/...' },
     // { label: '知乎', href: 'https://www.zhihu.com/people/...' },
   ],

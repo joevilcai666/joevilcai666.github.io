@@ -37,7 +37,7 @@ export const UI: Record<Lang, {
   zh: {
     langToggle: 'English',
     htmlLang: 'zh-CN',
-    description: '蔡骥淳（Joe）的个人网站 —— AI 工程师，关注大模型记忆系统与智能体基础设施。博客、项目与职业经历。',
+    description: '蔡骥淳（Joe）的个人网站 —— AI Agent 方向产品负责人，专注 Agent 基础设施与商业化落地。博客、项目与职业经历。',
     homeGreeting: "Hi, I'm Joe",
     homeDir: '指引',
     homeFind: '找到我',
@@ -61,7 +61,7 @@ export const UI: Record<Lang, {
   en: {
     langToggle: '中文',
     htmlLang: 'en',
-    description: 'Joe Cai (Cai Jichun) — AI engineer working on LLM memory systems and agent infrastructure. Blog, projects and career.',
+    description: 'Joe Cai (Cai Jichun) — product lead for AI agent infrastructure and commercialization. Blog, projects and career.',
     homeGreeting: "Hi, I'm Joe",
     homeDir: 'Explore',
     homeFind: 'Find me',

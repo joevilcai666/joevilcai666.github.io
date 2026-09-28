@@ -1,4 +1,4 @@
-// 职业经历数据 —— 替换成你的真实经历即可（每个字段提供中/英文）
+// 职业经历数据（中/英双语）
 import type { Localized } from './i18n';
 
 export interface WorkEntry {
@@ -13,57 +13,88 @@ export interface WorkEntry {
 
 export const WORK: WorkEntry[] = [
   {
-    period: '2024 — 至今 / Present',
-    role: { zh: 'AI 应用工程师', en: 'AI Application Engineer' },
-    org: { zh: '某 AI 科技公司', en: 'An AI startup' },
+    period: '2025.12 — 至今 / Present',
+    role: { zh: '产品负责人', en: 'Product Lead' },
+    org: { zh: 'Anyway · Agent 支付创业公司', en: 'Anyway · Agent payments startup' },
     current: true,
     summary: {
-      zh: '负责大模型记忆与智能体方向的产品研发，从零构建热路径记忆系统 MemLoom，并主导主流记忆方案（HMS / mem0 / EgoLife）的选型评测。',
-      en: 'Building LLM memory and agent infrastructure from the ground up; created MemLoom, a hot-path memory system, and lead the evaluation of mainstream memory solutions (HMS / mem0 / EgoLife).',
+      zh: '从 0 到 1 主导构建「Agent 时代的支付网络」：围绕 Traces / Products / Orders / Wallets 打通 Agent 的「行为记录 → 商品定义 → 订单结算 → 多轨支付」全链路，让每一个 Agent 都能安全、可审计地收款、付款、对账与验收。',
+      en: 'Building the payment network for the agent age from 0 to 1 — a full pipeline across Traces / Products / Orders / Wallets that lets every agent accept, send, reconcile and verify payments safely and auditably.',
     },
     highlights: [
       {
-        zh: '设计热路径零 LLM 调用的记忆读写方案，将带记忆对话的额外延迟与成本压到接近零',
-        en: 'Designed zero-LLM memory reads/writes on the hot path, cutting added latency and cost of memory-augmented conversations to near zero',
+        zh: '提出「Traces as the new Receipt」：把 Agent 执行过程结构化为可验证的支付凭证，在 Stripe ACP、Google AP2、Coinbase x402 等协议分裂的竞争中确立差异化定位',
+        en: 'Proposed "Traces as the new Receipt" — structuring agent execution into verifiable payment receipts, a differentiated position amid fragmented protocols (Stripe ACP / Google AP2 / Coinbase x402)',
       },
       {
-        zh: '建立记忆系统评测框架，覆盖召回率、时延、成本、可运维性四个维度',
-        en: 'Built a memory evaluation framework covering recall, latency, cost and operability',
+        zh: '主导收款与钱包产品：Payment Link 支持 One-time / Subscription / Usage-based 计费与 AI 定价；Agent Wallet 落地 Stripe Connect 法币 + USDC on Base 稳定币双轨，PolicyGuard 让 Agent 在受控边界内自主付款',
+        en: 'Owned monetization and wallet products: Payment Links with one-time / subscription / usage-based billing and AI pricing; Agent Wallet with dual-rail Stripe Connect + USDC on Base settlement, plus PolicyGuard controls for autonomous agent payments',
       },
       {
-        zh: '沉淀团队内部的智能体记忆接入规范',
-        en: 'Defined the team-wide agent memory integration spec',
+        zh: '定义 Freemium + Subscription + Take rate 三段式收入模型，以及 GMV、A2A 调用笔数、Trace 覆盖率、验收成功率等北极星指标',
+        en: 'Defined the freemium + subscription + take-rate revenue model and north-star metrics (GMV, A2A calls, trace coverage, acceptance rate)',
       },
     ],
-    stack: ['LLM Apps', 'RAG', 'Memory', 'Eval', 'Python'],
+    stack: ['Agent Payments', 'Product Strategy', '0→1', 'Fintech'],
   },
   {
-    period: '2022 — 2024',
-    role: { zh: '软件工程师', en: 'Software Engineer' },
-    org: { zh: '某互联网公司', en: 'An internet company' },
+    period: '2023.08 — 2025.12',
+    role: { zh: 'AI 产品经理', en: 'AI Product Manager' },
+    org: { zh: 'Alva · AI 金融工具创业公司', en: 'Alva · AI fintech startup' },
     summary: {
-      zh: '参与核心业务系统的设计与研发，负责服务端架构优化与稳定性建设，开始接触 LLM 应用开发。',
-      en: 'Designed and built core business systems; owned backend architecture and reliability, and got started with LLM application development.',
+      zh: '从 0 到 1 打造「金融投研版 Cursor」，主导底层工具与数据架构的 Agent 化改造、AI 评测体系（AI Evals）搭建与 C 端体验设计，系统性解决 Agent 在专业领域「幻觉多、逻辑黑盒、数据不可追溯」的痛点。',
+      en: 'Built a "Cursor for investment research" from 0 to 1 — agentic tooling and data infrastructure, an AI evaluation system (AI Evals), and consumer UX that tackled hallucination, black-box reasoning and untraceable data in professional finance.',
     },
     highlights: [
       {
-        zh: '主导某核心服务的重构，接口平均响应时间下降明显',
-        en: 'Led the refactoring of a core service, visibly cutting average API latency',
+        zh: '评估并接入 20+ 家外部数据 API，重构为 150+ 个标准化工具，覆盖美股、期权、加密货币等多市场数据',
+        en: 'Evaluated and integrated 20+ external data APIs, refactored into 150+ standardized tools across equities, options and crypto markets',
       },
       {
-        zh: '搭建线上问题排查与监控告警体系',
-        en: 'Built the on-call debugging and monitoring stack',
+        zh: '从 0 到 1 搭建 AI Evals 评测体系：覆盖数据准确性、多跳推理等 10+ 维度，用自动打分闭环反向优化提示词与工具设计',
+        en: 'Built AI Evals from scratch across 10+ dimensions (data accuracy, multi-hop reasoning, and more), with an auto-scoring loop that fed back into prompts and tool design',
+      },
+      {
+        zh: '主导资产详情页从 0 到 1 设计与生成内容「白盒化」，并在公司向「美股 + 加密策略工具」的三次转型中主导新旧功能迁移',
+        en: 'Led the asset-detail page from 0 to 1 and white-box answer UX, and steered feature migration through three pivots toward a US-equities + crypto strategy tool',
       },
     ],
-    stack: ['Backend', 'System Design', 'Performance'],
+    stack: ['AI Evals', 'Agent Tools', 'Data Infra', 'Product Design'],
   },
   {
-    period: '2018 — 2022',
-    role: { zh: '计算机科学 · 本科', en: 'B.Sc. in Computer Science' },
-    org: { zh: '某大学', en: 'A university' },
+    period: '2023.04 — 2023.08',
+    role: { zh: 'AI 产品实习生', en: 'AI Product Intern' },
+    org: { zh: '杭州心识宇宙科技', en: 'Universe of Mind, Hangzhou' },
     summary: {
-      zh: '打下工程与算法基础，毕业设计方向为自然语言处理。',
-      en: 'Grounding in engineering and algorithms; capstone in natural language processing.',
+      zh: '从 0 设计 AI Agent 美股分析师产品：结合数据 API、平台功能与提示词工程，让 Agent 自动收集分析市场数据并生成投研报告，吸引 5000+ 用户使用。',
+      en: 'Designed an AI-agent equity-analyst product from 0 — combining data APIs, platform features and prompt engineering so the agent could gather and analyze market data and write research reports, attracting 5,000+ users.',
+    },
+    highlights: [
+      {
+        zh: '深度参与产品海外 0→1 增长：以用户访谈与数据分析（Google Analytics / Superset）驱动功能与内容迭代',
+        en: 'Helped drive the product\u2019s 0→1 overseas growth, iterating on features and content through user interviews and analytics (Google Analytics / Superset)',
+      },
+    ],
+    stack: ['AI Agent', 'Prompt Design', 'Growth'],
+  },
+  {
+    period: '2022.09 — 2024.06',
+    role: { zh: '公共政策 · 硕士', en: 'Master of Public Policy' },
+    org: { zh: '芝加哥大学', en: 'University of Chicago' },
+    summary: {
+      zh: '公共政策硕士，修读数据分析证书：统计分析（R 语言）、大数据与机器学习、中级微观经济学。',
+      en: 'Master\u2019s in public policy with a data-analytics certificate: statistical analysis (R), big data & machine learning, and intermediate microeconomics.',
+    },
+    highlights: [],
+    stack: [],
+  },
+  {
+    period: '2018.08 — 2021.12',
+    role: { zh: '体育管理 · 本科', en: 'B.Sc. in Sport Administration' },
+    org: { zh: '迈阿密大学', en: 'University of Miami' },
+    summary: {
+      zh: 'GPA 3.95 / 4.00（专业第一），Magna Cum Laude 荣誉毕业生，入选校长嘉奖榜与院长嘉奖榜。',
+      en: 'GPA 3.95/4.00 (top of class); Magna Cum Laude graduate with President\u2019s List and Dean\u2019s List honors.',
     },
     highlights: [],
     stack: [],
