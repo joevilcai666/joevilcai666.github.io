@@ -1,35 +1,48 @@
 ---
 import { PROJECTS } from '../../data/projects';
 import { UI, t, type Lang } from '../../data/i18n';
+import { withBase } from '../../data/site';
 
 const { lang } = Astro.props;
 const ui = UI[lang];
+const base = lang === 'en' ? '/en' : '';
+const langToggleHref = withBase(`/en${Astro.url.pathname}`);
+
+const markOf = (name: string) => name.trim().charAt(0).toUpperCase();
+const isLive = (statusZh: string) => statusZh === '开发中';
 ---
 
-<div class="page-head">
-  <span class="eyebrow">{ui.projectsEyebrow}</span>
-  <h1>{ui.projectsTitle}</h1>
-  <p class="sub">{ui.projectsSub}</p>
+<div class="back-line">
+  <a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a>
+  <a href={langToggleHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'}>{ui.langToggle}</a>
 </div>
 
-<div class="project-list">
+<h1 class="section-h">{ui.projectsTitle}</h1>
+<p class="tagline" style="margin:0.375rem 0 2rem">{ui.projectsSub}</p>
+
+<div class="card-grid">
   {
     PROJECTS.map((p) => (
-      <article id={p.id} class="project-card">
-        <header class="project-head">
-          <h2>{p.name}</h2>
-          <span class="tag t-proj">{t(p.status, lang)}</span>
-        </header>
-        <p class="project-tagline">{t(p.tagline, lang)}</p>
-        <p class="project-desc">{t(p.description, lang)}</p>
+      <article id={p.id} class="card">
+        <div class="card-head">
+          <h2 class="card-title">
+            <span class="card-mark" style={`--mark:${p.accent}`} aria-hidden="true">{markOf(p.name)}</span>
+            {p.links && p.links.length > 0 ? (
+              <a href={p.links[0].href} target="_blank" rel="noopener">{p.name}</a>
+            ) : (
+              <span>{p.name}</span>
+            )}
+            {isLive(t(p.status, 'zh')) && <span class="dot" aria-hidden="true" />}
+          </h2>
+        </div>
+        <p class="card-tag">{t(p.tagline, lang)}</p>
+        <p class="card-desc">{t(p.description, lang)}</p>
         {p.links && p.links.length > 0 && (
-          <p class="project-links">
+          <p class="card-links">
             {p.links.map((l, i) => (
               <>
                 {i > 0 && ' · '}
-                <a href={l.href} target="_blank" rel="noopener">
-                  {l.label}
-                </a>
+                <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
               </>
             ))}
           </p>
@@ -38,54 +51,3 @@ const ui = UI[lang];
     ))
   }
 </div>
-
-<style>
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .project-card {
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 1.4rem 1.5rem;
-    background: color-mix(in srgb, var(--fill) 40%, var(--paper));
-    scroll-margin-top: 1.5rem;
-    transition: border-color 0.2s ease;
-  }
-
-  .project-card:hover {
-    border-color: var(--line-strong);
-  }
-
-  .project-head {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .project-head h2 {
-    font-size: 1.15rem;
-    margin: 0;
-  }
-
-  .project-tagline {
-    margin: 0 0 0.7rem;
-    color: var(--c-proj);
-    font-size: 0.92rem;
-    font-weight: 500;
-  }
-
-  .project-desc {
-    margin: 0 0 0.9rem;
-    color: var(--ink-2);
-    font-size: 0.95rem;
-  }
-
-  .project-links {
-    margin: 0.8rem 0 0;
-    font-size: 0.9rem;
-  }
-</style>

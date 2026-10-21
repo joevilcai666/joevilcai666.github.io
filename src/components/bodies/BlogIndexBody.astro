@@ -10,16 +10,20 @@ interface Props {
 
 const { lang, posts } = Astro.props;
 const ui = UI[lang];
+const base = lang === 'en' ? '/en' : '';
+const langToggleHref = withBase(`/en${Astro.url.pathname}`);
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-CA'); // 2026-09-02，中英文读者都可读
 ---
 
-<div class="page-head">
-  <span class="eyebrow">{ui.blogEyebrow}</span>
-  <h1>{ui.blogTitle}</h1>
-  <p class="sub">{ui.blogSub}</p>
+<div class="back-line">
+  <a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a>
+  <a href={langToggleHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'}>{ui.langToggle}</a>
 </div>
+
+<h1 class="section-h">{ui.blogTitle}</h1>
+<p class="tagline" style="margin:0.375rem 0 2rem">{ui.blogSub}</p>
 
 <ul class="row-list">
   {

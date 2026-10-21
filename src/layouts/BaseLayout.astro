@@ -1,9 +1,6 @@
 ---
 import '@fontsource-variable/inter';
-import '@fontsource/caveat/500.css';
-import '@fontsource/caveat/600.css';
 import '../styles/global.css';
-import SealMark from '../components/SealMark.astro';
 import Icon from '../components/icons/Icon.astro';
 import { SITE, withBase } from '../data/site';
 import { UI, counterpartPath, hasCounterpart, type Lang } from '../data/i18n';
@@ -12,11 +9,13 @@ interface Props {
   title?: string;
   description?: string;
   lang?: Lang;
-  /** 首页不渲染任何角落导航，纯内容呈现 */
+  /** 首页：渲染完整页头（名字 + 副题 + 图标行 + 头像） */
   home?: boolean;
+  /** 长文阅读页 */
+  prose?: boolean;
 }
 
-const { lang = 'zh', title, home = false } = Astro.props;
+const { lang = 'zh', title, home = false, prose = false } = Astro.props;
 const ui = UI[lang];
 const description = Astro.props.description ?? ui.description;
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
@@ -39,8 +38,9 @@ const altEn = new URL(withBase(counterpartPath(path, 'zh')), Astro.site);
 <html lang={ui.htmlLang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#ffffff" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={SITE.fullName} />
@@ -59,25 +59,66 @@ const altEn = new URL(withBase(counterpartPath(path, 'zh')), Astro.site);
     <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
     <meta name="twitter:card" content="summary" />
   </head>
-  <body>
-    {
-      home ? null : (
-        <div class="corner">
-          <a class="corner-home" href={homeHref} aria-label={lang === 'en' ? 'Home' : '回到首页'}>
-            <SealMark size={24} />
-          </a>
-          <a class="corner-lang" href={langToggleHref} hreflang={hreflangAlt} aria-label={switchLabel}>
-            <Icon name="lang" />
-            {ui.langToggle}
-          </a>
-        </div>
-      )
-    }
-
-    <main>
+  <body
+    data-base-home={homeHref}
+    data-base-work={withBase(lang === 'en' ? '/en/work' : '/work')}
+    data-base-projects={withBase(lang === 'en' ? '/en/projects/' : '/projects/')}
+    data-base-blog={withBase(lang === 'en' ? '/en/blog/' : '/blog/')}
+  >
+    <main class:list={['page', home && 'stack']}>
+      {
+        home ? (
+          <header class="masthead">
+            <div class="masthead-id">
+              <h1>{SITE.fullName}</h1>
+              <p class="tagline">{ui.tagline}</p>
+              <div class="icon-row">
+                <a class="icon-btn" href="https://github.com/joevilcai666" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+                  <Icon name="github" size={16} />
+                </a>
+                <a class="icon-btn" href="https://www.linkedin.com/in/jichun46/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+                  <Icon name="linkedin" size={16} />
+                </a>
+                <a class="icon-btn" href="mailto:jichun.cai@outlook.com" aria-label={lang === 'zh' ? '邮件' : 'Email'} title="Email">
+                  <Icon name="mail" size={16} />
+                </a>
+                <a class="icon-btn icon-btn--text" href={langToggleHref} hreflang={hreflangAlt} aria-label={switchLabel} title={switchLabel}>
+                  {ui.langToggle}
+                </a>
+              </div>
+            </div>
+          </header>
+        ) : null
+      }
       <slot />
     </main>
 
-    <footer class="colophon">© {new Date().getFullYear()} Joe</footer>
+    <footer class="colophon">© {new Date().getFullYear()} {SITE.enName} · {ui.tagline}</footer>
+
+    <script>
+      // 键盘导航：W / P / B 直达分区，Esc 从内页返回首页（输入框内不触发）
+      const body = document.body;
+      const base = {
+        w: body.dataset.baseWork ?? '/work',
+        p: body.dataset.baseProjects ?? '/projects/',
+        b: body.dataset.baseBlog ?? '/blog/',
+        home: body.dataset.baseHome ?? '/',
+      };
+      const samePath = (a: string) =>
+        location.pathname.replace(/\/+$/, '') === a.replace(/\/+$/, '');
+
+      document.addEventListener('keydown', (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        const target = e.target as HTMLElement | null;
+        if (target && /^(input|textarea|select)$/i.test(target.tagName)) return;
+        const key = e.key.toLowerCase();
+        if (key === 'w' || key === 'p' || key === 'b') {
+          const dest = base[key];
+          if (!samePath(dest)) location.href = dest;
+        } else if (key === 'escape') {
+          if (!samePath(base.home)) location.href = base.home;
+        }
+      });
+    </script>
   </body>
 </html>

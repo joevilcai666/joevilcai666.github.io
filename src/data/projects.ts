@@ -1,4 +1,4 @@
-// 项目数据 —— 替换成你的真实项目（每个字段提供中/英文）
+// 项目数据 —— Origin IM / Craft / Prose（信息来自 joevilcai666 的仓库文档）
 import type { Localized } from './i18n';
 
 export interface Project {
@@ -9,40 +9,44 @@ export interface Project {
   description: Localized;
   links?: { label: string; href: string }[];
   stack: string[];
+  accent: string; // 卡片字母标的品牌色
 }
 
 export const PROJECTS: Project[] = [
   {
-    id: 'memloom',
-    name: 'MemLoom',
-    status: { zh: '进行中', en: 'In progress' },
-    tagline: { zh: '热路径零 LLM 的记忆系统', en: 'A memory system with zero LLM calls on the hot path' },
+    id: 'origin-im',
+    accent: '#3d7bd6',
+    name: 'Origin IM',
+    status: { zh: '规格已确认', en: 'Spec approved' },
+    tagline: { zh: 'iMessage 里的私人 AI 管家', en: 'A proactive AI butler living in iMessage' },
     description: {
-      zh: '让智能体在对话之外「记得住、想得起、用得上」。把 LLM 从记忆读写的热路径上挪出去，用结构化的记忆操作换取接近零的额外延迟与成本；沉淀了完整的构建、迭代与实测报告。',
-      en: 'Letting agents remember beyond a single conversation — recall, retrieve, and actually use. Moves LLMs off the memory read/write hot path, trading generative summarization for structured operations at near-zero added latency and cost; includes full build, iterate and benchmark reports.',
+      zh: '工作、健康、随手想法和长期托付，在同一个 iMessage 对话中自然连续；网页端用于连接数据、查看完整成果与使用长期工具。产品与 v4 交互设计已获确认，进入研发阶段。',
+      en: 'Work, health, quick thoughts and long-horizon commitments flow through one continuous iMessage conversation; a companion web app connects data, shows full results and hosts long-term tools. Product and v4 interaction design approved; now entering engineering.',
     },
-    stack: ['Memory', 'LLM Apps', 'Eval'],
+    stack: ['iMessage', 'AI Agent', '0→1'],
   },
   {
-    id: 'memory-reviews',
-    name: 'Memory System Reviews',
-    status: { zh: '持续更新', en: 'Ongoing' },
-    tagline: { zh: 'HMS · mem0 · EgoLife 全景对比', en: 'Side-by-side deep dives: HMS · mem0 · EgoLife' },
+    id: 'craft',
+    accent: '#e0862a',
+    name: 'Craft',
+    status: { zh: '开发中', en: 'In development' },
+    tagline: { zh: '本地优先的阅读与写作工具', en: 'Local-first reading & writing' },
     description: {
-      zh: '对主流大模型记忆方案做的产品决策级深度拆解：从召回质量、时延成本、可运维性到适用场景，用同一套框架横向评测，结论持续更新。',
-      en: 'Product-decision-grade teardowns of mainstream LLM memory solutions: recall quality, latency and cost, operability, and fit — all benchmarked under one framework, with conclusions updated continuously.',
+      zh: '帮你读懂资料、理清思路、用自己的话写出想法。Mac 优先、本地优先：本地读写、笔记、搜索与导出免费，付费只覆盖跨设备同步与托管 AI。',
+      en: 'Understand what you read, think it through, and write in your own words. Mac-first and local-first: reading, writing, notes, search and export are free; only cross-device sync and hosted AI are paid.',
     },
-    stack: ['Eval', 'Product', 'mem0', 'HMS'],
+    stack: ['macOS', 'Local-first', 'Reading / Writing'],
   },
   {
-    id: 'letter',
-    name: '回信 · Reply',
-    status: { zh: '原型', en: 'Prototype' },
-    tagline: { zh: '信纸美学的微信小程序', en: 'A WeChat mini-program with letter-paper aesthetics' },
+    id: 'prose',
+    accent: '#8a6fd1',
+    name: 'Prose',
+    status: { zh: '首版规划中', en: 'First version planned' },
+    tagline: { zh: '面向产品负责人的文字规则编辑器', en: 'Plain-language rules for software' },
     description: {
-      zh: '一个慢节奏的书信小程序低保真原型：信纸米白、墨色文字、封蜡红作唯一强调色。探索「即时通讯时代的慢对话」这一命题。',
-      en: 'A lo-fi prototype of a slow-paced letter mini-program: paper white, ink text, sealing-wax red as the only accent. An exploration of slow conversation in the age of instant messaging.',
+      zh: '让不写代码的产品负责人持续读懂、修改并验证软件。独立 macOS App，用代码编辑器式交互维护 Markdown 功能规则，保留可纠正的理解与运行证据；首版完整支持 Craft 的导出旅程。',
+      en: 'Lets product leads who don\'t write code keep reading, modifying and verifying real software. A standalone macOS app with code-editor-style interaction over Markdown feature rules, keeping correctable understanding and run evidence; first version fully supports Craft\'s export journeys.',
     },
-    stack: ['WeChat Mini Program', 'Prototyping', 'UI'],
+    stack: ['macOS', 'Rules as Code', 'Code-OSS'],
   },
 ];

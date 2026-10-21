@@ -5,6 +5,10 @@ export interface WorkEntry {
   period: string;
   role: Localized;
   org: Localized;
+  /** 公司/机构小图标（public 下的路径） */
+  logo: string;
+  /** 公司链接（没有公开站点的可不填） */
+  href?: string;
   current?: boolean;
   summary: Localized;
   highlights: Localized[];
@@ -16,6 +20,7 @@ export const WORK: WorkEntry[] = [
     period: '2025.12 — 至今 / Present',
     role: { zh: '产品负责人', en: 'Product Lead' },
     org: { zh: 'Anyway · Agent 支付创业公司', en: 'Anyway · Agent payments startup' },
+    logo: '/logos/anyway.png',
     current: true,
     summary: {
       zh: '从 0 到 1 主导构建「Agent 时代的支付网络」：围绕 Traces / Products / Orders / Wallets 打通 Agent 的「行为记录 → 商品定义 → 订单结算 → 多轨支付」全链路，让每一个 Agent 都能安全、可审计地收款、付款、对账与验收。',
@@ -41,6 +46,8 @@ export const WORK: WorkEntry[] = [
     period: '2023.08 — 2025.12',
     role: { zh: 'AI 产品经理', en: 'AI Product Manager' },
     org: { zh: 'Alva · AI 金融工具创业公司', en: 'Alva · AI fintech startup' },
+    logo: '/logos/alva.png',
+    href: 'https://alva.ai',
     summary: {
       zh: '从 0 到 1 打造「金融投研版 Cursor」，主导底层工具与数据架构的 Agent 化改造、AI 评测体系（AI Evals）搭建与 C 端体验设计，系统性解决 Agent 在专业领域「幻觉多、逻辑黑盒、数据不可追溯」的痛点。',
       en: 'Built a "Cursor for investment research" from 0 to 1 — agentic tooling and data infrastructure, an AI evaluation system (AI Evals), and consumer UX that tackled hallucination, black-box reasoning and untraceable data in professional finance.',
@@ -65,6 +72,8 @@ export const WORK: WorkEntry[] = [
     period: '2023.04 — 2023.08',
     role: { zh: 'AI 产品实习生', en: 'AI Product Intern' },
     org: { zh: '杭州心识宇宙科技', en: 'Universe of Mind, Hangzhou' },
+    logo: '/logos/mindverse.png',
+    href: 'https://home.second.me',
     summary: {
       zh: '从 0 设计 AI Agent 美股分析师产品：结合数据 API、平台功能与提示词工程，让 Agent 自动收集分析市场数据并生成投研报告，吸引 5000+ 用户使用。',
       en: 'Designed an AI-agent equity-analyst product from 0 — combining data APIs, platform features and prompt engineering so the agent could gather and analyze market data and write research reports, attracting 5,000+ users.',
@@ -81,6 +90,7 @@ export const WORK: WorkEntry[] = [
     period: '2022.09 — 2024.06',
     role: { zh: '公共政策 · 硕士', en: 'Master of Public Policy' },
     org: { zh: '芝加哥大学', en: 'University of Chicago' },
+    logo: '/logos/uchicago.png',
     summary: {
       zh: '公共政策硕士，修读数据分析证书：统计分析（R 语言）、大数据与机器学习、中级微观经济学。',
       en: 'Master\u2019s in public policy with a data-analytics certificate: statistical analysis (R), big data & machine learning, and intermediate microeconomics.',
@@ -92,6 +102,7 @@ export const WORK: WorkEntry[] = [
     period: '2018.08 — 2021.12',
     role: { zh: '体育管理 · 本科', en: 'B.Sc. in Sport Administration' },
     org: { zh: '迈阿密大学', en: 'University of Miami' },
+    logo: '/logos/miami.png',
     summary: {
       zh: 'GPA 3.95 / 4.00（专业第一），Magna Cum Laude 荣誉毕业生，入选校长嘉奖榜与院长嘉奖榜。',
       en: 'GPA 3.95/4.00 (top of class); Magna Cum Laude graduate with President\u2019s List and Dean\u2019s List honors.',

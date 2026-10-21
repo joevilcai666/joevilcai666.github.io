@@ -1,115 +1,155 @@
 ---
 import { withBase } from '../../data/site';
-import { UI, counterpartPath, type Lang } from '../../data/i18n';
-import Icon from '../icons/Icon.astro';
+import { UI, t, type Lang } from '../../data/i18n';
+import { PROJECTS } from '../../data/projects';
+import { WORK } from '../../data/work';
 
 const { lang } = Astro.props;
 const ui = UI[lang];
-const base = lang === 'en' ? '/en' : '';
-const langToggleHref = withBase(counterpartPath(Astro.url.pathname, lang));
+
+// 卡片角落的字母标（代替 damon 的产品 logo）
+const markOf = (name: string) => name.trim().charAt(0).toUpperCase();
+const isLive = (statusZh: string) => statusZh === '开发中';
 ---
 
-<section class="hero">
-  <h1 class="hi">{ui.homeGreeting}</h1>
+<section class="about">
+  <h2 class="section-h">{ui.aboutTitle}</h2>
+  {
+    lang === 'zh' ? (
+      <>
+        <p>
+          这几年一直在 AI 创业公司做产品。工作后才发现，那些本来不值得人持续投入注意力、却不得不处理的事情，反而持续占用人的时间。于是我正在做
+          <em>Origin</em>
+          这款产品，替人安排运动和饮食，追踪日常花销，和处理工作上的任务。
+        </p>
+        <p>
+          打磨 <em>Origin</em>
+          时，原本只想把精力放在产品本身，却不断需要反复与编程 agent
+          沟通、排错。这件事让我产生了做第二款产品 <em>Craft</em>
+          的冲动，让人把注意力花在做什么、为什么做、做出来的是不是自己想要的结果上。
+        </p>
+        <p>
+          过去几次创业在没有正反馈的情况下，公司会安排人处理更多任务。这种现象也让我意识到，当一个组织无法降低方向上的不确定性时，很容易转而增加执行上的确定性。这些经历让我长期关注一个问题：什么样的组织环境能让人愿意投入、敢于判断、能够创造？
+        </p>
+        <p>
+          我非常喜欢阅读，他人的文字让我敢于离开不喜欢的工作环境，更主动寻找真正想做的事情。也让我意识到钱可以让我对不喜欢的事情说&ldquo;不&rdquo;。生活中总有让我困惑和好奇的问题，于是我通过写作把模糊的东西想清楚，也许我的视角也能给正在阅读的你多一个参考。
+        </p>
+      </>
+    ) : (
+      <>
+        <p>
+          These past few years I've been building products at AI startups. Once I started working,
+          I noticed something: the things that don't deserve anyone's attention — yet still have to
+          be dealt with — are exactly the ones that keep taking up our time. So I'm building{' '}
+          <em>Origin</em>, a product that arranges your exercise and meals, tracks your daily
+          spending, and handles your work tasks.
+        </p>
+        <p>
+          While polishing <em>Origin</em>, I meant to focus on the product itself, but kept getting
+          pulled into back-and-forths with coding agents, debugging. That experience gave me the
+          urge to build a second product, <em>Craft</em> — one that lets people spend their
+          attention on what to do, why to do it, and whether what gets built is actually what they
+          want.
+        </p>
+        <p>
+          In my past startups, when positive feedback was missing, the company would respond by
+          assigning people more tasks. It made me realize: when an organization can't reduce
+          uncertainty about direction, it tends to increase certainty about execution instead.
+          These experiences left me with a question I keep coming back to: what kind of environment
+          makes people willing to commit, brave enough to judge, and able to create?
+        </p>
+        <p>
+          I love reading. Other people's words gave me the courage to leave work environments I
+          didn't like and go look for what I truly wanted to do. They also made me see that money
+          lets me say &ldquo;no&rdquo; to what I dislike. Life is full of questions that puzzle and
+          intrigue me, so I write to think the vague ones through — and maybe my perspective can
+          offer you, the reader, one more reference.
+        </p>
+      </>
+    )
+  }
 </section>
 
-{
-  lang === 'zh' ? (
-    <section class="prose-home">
-      <p>
-        这几年一直在 AI 创业公司做产品。工作后才发现，那些本来不值得人持续投入注意力、却不得不处理的事情，反而持续占用人的时间。于是我正在做
-        Origin
-        这款产品，替人安排运动和饮食，追踪日常花销，和处理工作上的任务。
-      </p>
-      <p>
-        打磨 Origin
-        时，原本只想把精力放在产品本身，却不断需要反复与编程 agent
-        沟通、排错。这件事让我产生了做第二款产品 Craft
-        的冲动，让人把注意力花在做什么、为什么做、做出来的是不是自己想要的结果上。
-      </p>
-      <p>
-        过去几次创业在没有正反馈的情况下，公司会安排人处理更多任务。这种现象也让我意识到，当一个组织无法降低方向上的不确定性时，很容易转而增加执行上的确定性。这些经历让我长期关注一个问题：什么样的组织环境能让人愿意投入、敢于判断、能够创造？
-      </p>
-      <p>
-        我非常喜欢阅读，他人的文字让我敢于离开不喜欢的工作环境，更主动寻找真正想做的事情。也让我意识到钱可以让我对不喜欢的事情说&ldquo;不&rdquo;。生活中总有让我困惑和好奇的问题，于是我通过写作把模糊的东西想清楚，也许我的视角也能给正在阅读的你多一个参考。
-      </p>
-    </section>
-  ) : (
-    <section class="prose-home">
-      <p>
-        These past few years I've been building products at AI startups. Once I started working,
-        I noticed something: the things that don't deserve anyone's attention — yet still have to
-        be dealt with — are exactly the ones that keep taking up our time. So I'm building Origin,
-        a product that arranges your exercise and meals, tracks your daily spending, and handles
-        your work tasks.
-      </p>
-      <p>
-        While polishing Origin, I meant to focus on the product itself, but kept getting pulled
-        into back-and-forths with coding agents, debugging. That experience gave me the urge to
-        build a second product, Craft — one that lets people spend their attention on what to do,
-        why to do it, and whether what gets built is actually what they want.
-      </p>
-      <p>
-        In my past startups, when positive feedback was missing, the company would respond by
-        assigning people more tasks. It made me realize: when an organization can't reduce
-        uncertainty about direction, it tends to increase certainty about execution instead.
-        These experiences left me with a question I keep coming back to: what kind of environment
-        makes people willing to commit, brave enough to judge, and able to create?
-      </p>
-      <p>
-        I love reading. Other people's words gave me the courage to leave work environments I
-        didn't like and go look for what I truly wanted to do. They also made me see that money
-        lets me say &ldquo;no&rdquo; to what I dislike. Life is full of questions that puzzle and
-        intrigue me, so I write to think the vague ones through — and maybe my perspective can
-        offer you, the reader, one more reference.
-      </p>
-    </section>
-  )
-}
-
-<section class="home-section">
-  <h2>{ui.homeDir}</h2>
-  <ul class="link-row">
-    <li>
-      <a href={withBase(`${base}/work`)} data-sec="work">
-        <Icon name="work" />{ui.homeWork}
-      </a>
-    </li>
-    <li>
-      <a href={withBase(`${base}/projects/`)} data-sec="projects">
-        <Icon name="projects" />{ui.homeProjects}
-      </a>
-    </li>
-    <li>
-      <a href={withBase(`${base}/blog/`)} data-sec="blog">
-        <Icon name="blog" />{ui.homeBlog}
-      </a>
-    </li>
-    <li>
-      <a href={langToggleHref} data-sec="lang" hreflang={lang === 'zh' ? 'en' : 'zh-CN'} aria-label="Switch language">
-        <Icon name="lang" />{ui.langToggle}
-      </a>
-    </li>
-  </ul>
+<section>
+  <h2 class="section-h">{ui.portfolioTitle}</h2>
+  <div class="card-grid">
+    {
+      PROJECTS.map((p) => (
+        <article class="card">
+          <div class="card-head">
+            <h3 class="card-title">
+              <span class="card-mark" style={`--mark:${p.accent}`} aria-hidden="true">{markOf(p.name)}</span>
+              {p.links && p.links.length > 0 ? (
+                <a href={p.links[0].href} target="_blank" rel="noopener">{p.name}</a>
+              ) : (
+                <span>{p.name}</span>
+              )}
+              {isLive(t(p.status, 'zh')) && <span class="dot" aria-hidden="true" />}
+            </h3>
+          </div>
+          <p class="card-tag">{t(p.tagline, lang)}</p>
+          <p class="card-desc">{t(p.description, lang)}</p>
+          {p.links && p.links.length > 0 && (
+            <p class="card-links">
+              {p.links.map((l, i) => (
+                <>
+                  {i > 0 && ' · '}
+                  <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
+                </>
+              ))}
+            </p>
+          )}
+        </article>
+      ))
+    }
+  </div>
 </section>
 
-<section class="home-section">
-  <h2>{ui.homeFind}</h2>
-  <ul class="link-row">
-    <li>
-      <a href="https://github.com/joevilcai666" target="_blank" rel="noopener">
-        <Icon name="github" />GitHub
-      </a>
-    </li>
-    <li>
-      <a href="https://www.linkedin.com/in/jichun46/" target="_blank" rel="noopener">
-        <Icon name="linkedin" />LinkedIn
-      </a>
-    </li>
-    <li>
-      <a href="mailto:jichun.cai@outlook.com">
-        <Icon name="mail" />Email
-      </a>
-    </li>
-  </ul>
+<section>
+  <h2 class="section-h">{ui.workTitle}</h2>
+  <ol class="work-fold">
+    {
+      WORK.map((item) => (
+        <li>
+          <details>
+            <summary>
+              <span class="wf-logo">
+                <img src={withBase(item.logo)} alt="" width="18" height="18" loading="lazy" />
+              </span>
+              <span class="wf-main">
+                <span class="wf-role">{t(item.role, lang)}</span>
+                {item.href ? (
+                  <a class="wf-org" href={item.href} target="_blank" rel="noopener">
+                    {t(item.org, lang)}
+                  </a>
+                ) : (
+                  <span class="wf-org">{t(item.org, lang)}</span>
+                )}
+              </span>
+              <span class="wf-period">
+                {item.current && <span class="now" aria-hidden="true" />}
+                {item.period.split(' — ')[0]}
+                {item.current ? '' : ` — ${item.period.split(' — ')[1] ?? ''}`}
+              </span>
+              <span class="wf-chevron" aria-hidden="true">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </summary>
+            <div class="wf-body">
+              <p class="wf-summary">{t(item.summary, lang)}</p>
+              {item.highlights.length > 0 && (
+                <ul class="points">
+                  {item.highlights.map((h) => (
+                    <li>{t(h, lang)}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </details>
+        </li>
+      ))
+    }
+  </ol>
 </section>

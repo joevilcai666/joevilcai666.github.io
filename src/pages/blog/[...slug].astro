@@ -19,23 +19,26 @@ const fmt = (d: Date) =>
   d.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 
-<BaseLayout lang="zh" title={post.data.title} description={post.data.description ?? post.data.title}>
+<BaseLayout lang="zh" title={post.data.title} description={post.data.description ?? post.data.title} prose>
   <article class="prose">
-    <span class="eyebrow">{UI.zh.postEyebrow}</span>
+    <div class="back-line">
+      <a href={withBase('/blog/')}>{UI.zh.postBack}</a>
+      <a href={withBase('/rss.xml')}>{UI.zh.postRss}</a>
+    </div>
+
     <h1>{post.data.title}</h1>
     <p class="post-meta">
       <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
       {post.data.kind === '翻译' && <span class="tag">{UI.zh.translatedTag}</span>}
       {post.data.tags.map((t) => (
-        <span class="tag t-blog">{t}</span>
+        <span class="tag">{t}</span>
       ))}
     </p>
     <Content />
 
     <hr />
-    <p style="font-size:0.9rem;color:var(--ink-3)">
-      <a href={withBase('/blog/')}>{UI.zh.postBack}</a> ·
-      <a href={withBase('/rss.xml')}>{UI.zh.postRss}</a>
+    <p class="post-foot">
+      <a href={withBase('/blog/')}>{UI.zh.postBack}</a>
     </p>
   </article>
 </BaseLayout>
