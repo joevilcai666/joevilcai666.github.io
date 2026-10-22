@@ -20,7 +20,8 @@ export const WORK: WorkEntry[] = [
     period: '2025.12 — 至今 / Present',
     role: { zh: '产品负责人', en: 'Product Lead' },
     org: { zh: 'Anyway · Agent 支付创业公司', en: 'Anyway · Agent payments startup' },
-    logo: '/logos/anyway.png',
+    logo: '/logos/anyway.svg',
+    href: 'https://anyway.sh',
     current: true,
     summary: {
       zh: '从 0 到 1 主导构建「Agent 时代的支付网络」：围绕 Traces / Products / Orders / Wallets 打通 Agent 的「行为记录 → 商品定义 → 订单结算 → 多轨支付」全链路，让每一个 Agent 都能安全、可审计地收款、付款、对账与验收。',
