@@ -12,6 +12,11 @@ export const t = (item: Localized, lang: Lang): string => item[lang];
 // ---------- 界面文案 ----------
 export const UI: Record<Lang, {
   langToggle: string; // 切到另一种语言的链接文字
+  langSwitchLabel: string;
+  emailLabel: string;
+  contactLabel: string;
+  navigationLabel: string;
+  present: string;
   htmlLang: string;
   description: string;
   tagline: string; // 名字下方的 mono 副题
@@ -25,6 +30,7 @@ export const UI: Record<Lang, {
   projectsSub: string;
   blogTitle: string;
   blogSub: string;
+  blogEmpty: string;
   backLabel: string; // 内页左上角返回链接
   more: string; // 「更多」链接
   postEyebrow: string;
@@ -34,6 +40,11 @@ export const UI: Record<Lang, {
 }> = {
   zh: {
     langToggle: 'EN',
+    langSwitchLabel: '切换到英文',
+    emailLabel: '邮件',
+    contactLabel: '社交与联系',
+    navigationLabel: '内容导航',
+    present: '至今',
     htmlLang: 'zh-CN',
     description: '蔡骥淳（Joe）的个人网站 —— AI Agent 方向产品负责人，专注 Agent 基础设施与商业化落地。博客、项目与职业经历。',
     tagline: 'AI Agent 方向产品负责人 / product lead',
@@ -47,6 +58,7 @@ export const UI: Record<Lang, {
     projectsSub: '在做的、做过的，以及还在纸上打磨的。',
     blogTitle: '博客',
     blogSub: '技术笔记与翻译，写给自己，也写给同样在琢磨这些问题的人。',
+    blogEmpty: '还没有文章。',
     backLabel: '← 返回',
     more: '全部文章 →',
     postEyebrow: 'post',
@@ -55,7 +67,12 @@ export const UI: Record<Lang, {
     translatedTag: '译',
   },
   en: {
-    langToggle: '中',
+    langToggle: '中文',
+    langSwitchLabel: 'Switch to Chinese',
+    emailLabel: 'Email',
+    contactLabel: 'Connect',
+    navigationLabel: 'Content navigation',
+    present: 'Present',
     htmlLang: 'en',
     description: 'Joe Cai (Cai Jichun) — product lead for AI agent infrastructure and commercialization. Blog, projects and career.',
     tagline: 'building products for the agent age',
@@ -69,12 +86,13 @@ export const UI: Record<Lang, {
     projectsSub: 'Things in flight, things done, and things still on paper.',
     blogTitle: 'Blog',
     blogSub: 'Technical notes and translations — written for myself, and for anyone puzzling over the same questions.',
+    blogEmpty: 'No posts yet.',
     backLabel: '← Back',
     more: 'All posts →',
     postEyebrow: 'post',
     postBack: '← All posts',
     postRss: 'RSS',
-    translatedTag: '译',
+    translatedTag: 'Translation',
   },
 };
 
@@ -83,7 +101,7 @@ export const UI: Record<Lang, {
 const isEnPath = (p: string) => p === '/en' || p.startsWith('/en/');
 
 // 给定当前路径与语言，返回另一语言版本的路径
-// 博客文章只有中文版，对侧统一落到博客索引页
+// 保留当前页面与文章 slug，切换至对应翻译。
 export const counterpartPath = (path: string, lang: Lang): string => {
   const zhPath = isEnPath(path)
     ? path === '/en' || path === '/en/'
@@ -91,9 +109,7 @@ export const counterpartPath = (path: string, lang: Lang): string => {
       : path.slice(3) || '/'
     : path;
 
-  // 文章页（/blog/<slug>/）没有英文版，对侧指向博客列表
-  const zhTarget = /^\/blog\/.+/.test(zhPath) ? '/blog/' : zhPath;
-  return lang === 'zh' ? `/en${zhTarget === '/' ? '/' : zhTarget}` : zhTarget;
+  return lang === 'zh' ? `/en${zhPath === '/' ? '/' : zhPath}` : zhPath;
 };
 
 // 该路径是否存在对侧语言版本（用于 hreflang）
@@ -103,5 +119,7 @@ export const hasCounterpart = (path: string): boolean => {
       ? '/'
       : path.slice(3) || '/'
     : path;
-  return ['/', '/work', '/projects', '/blog', '/blog/'].includes(zhPath);
+  const normalized = zhPath.replace(/\/+$/, '') || '/';
+  return ['/', '/work', '/projects', '/blog'].includes(normalized)
+    || /^\/blog\/[^/]+$/.test(normalized);
 };

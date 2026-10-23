@@ -1,17 +1,17 @@
 ---
 import { WORK } from '../../data/work';
 import { UI, t, type Lang } from '../../data/i18n';
+import LanguageSwitch from '../LanguageSwitch.astro';
 import { withBase } from '../../data/site';
 
 const { lang } = Astro.props;
 const ui = UI[lang];
 const base = lang === 'en' ? '/en' : '';
-const langToggleHref = withBase(`/en${Astro.url.pathname}`);
 ---
 
 <div class="back-line">
   <a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a>
-  <a href={langToggleHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'}>{ui.langToggle}</a>
+  <LanguageSwitch lang={lang} />
 </div>
 
 <h1 class="section-h">{ui.workTitle}</h1>
@@ -23,7 +23,7 @@ const langToggleHref = withBase(`/en${Astro.url.pathname}`);
       <li class={item.current ? 'current' : ''}>
         <p class="when">
           {item.current && <span class="now" aria-hidden="true" />}
-          {item.period}
+          {item.current ? `${item.period.split(' — ')[0]} — ${ui.present}` : item.period}
         </p>
         <div class="tl-head">
           <span class="wf-logo">

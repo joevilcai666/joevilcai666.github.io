@@ -1,12 +1,12 @@
 ---
 import { PROJECTS } from '../../data/projects';
 import { UI, t, type Lang } from '../../data/i18n';
+import LanguageSwitch from '../LanguageSwitch.astro';
 import { withBase } from '../../data/site';
 
 const { lang } = Astro.props;
 const ui = UI[lang];
 const base = lang === 'en' ? '/en' : '';
-const langToggleHref = withBase(`/en${Astro.url.pathname}`);
 
 const markOf = (name: string) => name.trim().charAt(0).toUpperCase();
 const isLive = (statusZh: string) => statusZh === '开发中';
@@ -14,7 +14,7 @@ const isLive = (statusZh: string) => statusZh === '开发中';
 
 <div class="back-line">
   <a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a>
-  <a href={langToggleHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'}>{ui.langToggle}</a>
+  <LanguageSwitch lang={lang} />
 </div>
 
 <h1 class="section-h">{ui.projectsTitle}</h1>

@@ -2,16 +2,16 @@
 import type { CollectionEntry } from 'astro:content';
 import { withBase } from '../../data/site';
 import { UI, type Lang } from '../../data/i18n';
+import LanguageSwitch from '../LanguageSwitch.astro';
 
 interface Props {
   lang: Lang;
-  posts: CollectionEntry<'blog'>[];
+  posts: CollectionEntry<'blog' | 'blogEn'>[];
 }
 
 const { lang, posts } = Astro.props;
 const ui = UI[lang];
 const base = lang === 'en' ? '/en' : '';
-const langToggleHref = withBase(`/en${Astro.url.pathname}`);
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-CA'); // 2026-09-02，中英文读者都可读
@@ -19,17 +19,20 @@ const fmt = (d: Date) =>
 
 <div class="back-line">
   <a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a>
-  <a href={langToggleHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'}>{ui.langToggle}</a>
+  <LanguageSwitch lang={lang} />
 </div>
 
 <h1 class="section-h">{ui.blogTitle}</h1>
 <p class="tagline" style="margin:0.375rem 0 2rem">{ui.blogSub}</p>
 
+{posts.length === 0 ? (
+  <p class="empty-state">{ui.blogEmpty}</p>
+) : (
 <ul class="row-list">
   {
     posts.map((post) => (
       <li>
-        <a class="row-link" href={withBase(`/blog/${post.id}/`)}>
+        <a class="row-link" href={withBase(`${base}/blog/${post.id}/`)}>
           <span class="row-title">{post.data.title}</span>
           {post.data.kind === '翻译' && <span class="tag">{ui.translatedTag}</span>}
           <span class="row-date">{fmt(post.data.pubDate)}</span>
@@ -38,3 +41,4 @@ const fmt = (d: Date) =>
     ))
   }
 </ul>
+)}

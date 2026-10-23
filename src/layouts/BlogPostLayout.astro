@@ -1,0 +1,43 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import LanguageSwitch from '../components/LanguageSwitch.astro';
+import { withBase } from '../data/site';
+import { UI, type Lang } from '../data/i18n';
+
+interface Props {
+  lang: Lang;
+  post: CollectionEntry<'blog' | 'blogEn'>;
+}
+
+const { lang, post } = Astro.props;
+const ui = UI[lang];
+const { Content } = await render(post);
+const blogHref = withBase(lang === 'en' ? '/en/blog/' : '/blog/');
+const date = post.data.pubDate.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-CN', {
+  year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
+});
+---
+
+<BaseLayout lang={lang} title={post.data.title} description={post.data.description ?? post.data.title} prose>
+  <article class="prose">
+    <div class="back-line">
+      <a href={blogHref}>{ui.postBack}</a>
+      <div class="back-actions">
+        <LanguageSwitch lang={lang} />
+        <a href={withBase('/rss.xml')}>{ui.postRss}</a>
+      </div>
+    </div>
+
+    <h1>{post.data.title}</h1>
+    <p class="post-meta">
+      <time datetime={post.data.pubDate.toISOString()}>{date}</time>
+      {post.data.kind === '翻译' && <span class="tag">{ui.translatedTag}</span>}
+      {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+    </p>
+    <Content />
+
+    <hr />
+    <p class="post-foot"><a href={blogHref}>{ui.postBack}</a></p>
+  </article>
+</BaseLayout>

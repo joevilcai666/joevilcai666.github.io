@@ -1,0 +1,24 @@
+---
+import { UI, counterpartPath, type Lang } from '../data/i18n';
+import { withBase } from '../data/site';
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className } = Astro.props;
+const ui = UI[lang];
+const targetLang = lang === 'zh' ? 'en' : 'zh-CN';
+---
+
+<a
+  class={className}
+  href={withBase(counterpartPath(Astro.url.pathname, lang))}
+  hreflang={targetLang}
+  lang={targetLang}
+  aria-label={ui.langSwitchLabel}
+  title={ui.langSwitchLabel}
+>
+  {ui.langToggle}
+</a>

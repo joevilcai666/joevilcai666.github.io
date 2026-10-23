@@ -2,7 +2,9 @@
 
 极简个人网站：博客、项目、职业经历。基于 [Astro](https://astro.build) 构建，部署在 GitHub Pages。
 
-设计：纸·墨·封蜡 —— 暖纸白底、墨色文字、封蜡红唯一强调色，「骥」字印章为站标；自动适配深色模式；字体自托管（国内外访问均不受第三方 CDN 影响）。
+设计：白底、墨色文字、细灰边框的极简卡片风格。桌面端项目双列，窄屏单列；项目字母标保留各自颜色。当前使用浅色模式，字体自托管。按钮有轻微按压反馈，职业经历支持鼠标和键盘展开，并适配“减少动态效果”设置。
+
+产品当前行为、验证范围和限制见 [HOW_IT_WORKS.md](HOW_IT_WORKS.md)。
 
 ## 本地开发
 
@@ -10,6 +12,7 @@
 npm install
 npm run dev       # 开发服务器 http://localhost:4321
 npm run build     # 构建到 dist/
+npm test          # 构建并检查双语切换、博客入口、空状态与 RSS
 npm run preview   # 本地预览构建产物
 ```
 
@@ -56,13 +59,15 @@ cd ~/actions-runner/website-runner && ./config.sh --url https://github.com/joevi
 
 | 要改什么 | 改哪里 |
 | --- | --- |
-| 名字、简介、社交链接 | `src/data/site.ts` + `src/pages/index.astro` |
+| 名字、简介、社交链接 | `src/data/site.ts` + `src/components/bodies/HomeBody.astro` + `src/layouts/BaseLayout.astro` |
 | 职业经历 | `src/data/work.ts` |
 | 项目 | `src/data/projects.ts` |
-| 发博客 | 在 `src/content/blog/` 新建 `.md` 文件（frontmatter 见下方） |
+| 发博客 | 在 `src/content/blog/` 新建中文 `.md` 文件，并在 `src/content/blog-en/` 添加同名英文文件（frontmatter 见下方） |
 | 颜色 / 字体 / 版式 | `src/styles/global.css` 顶部的 CSS 变量 |
 
 博客文章 frontmatter 模板：
+
+当前博客为空。清空全部文章后，先运行 `npm run astro -- sync --force`，再构建，以清除 Astro 的旧内容缓存。
 
 ```markdown
 ---
