@@ -75,9 +75,8 @@ const altEn = new URL(withBase(counterpartPath(path, 'zh')), Astro.site);
     data-base-blog={withBase(lang === 'en' ? '/en/blog/' : '/blog/')}
   >
     <main class:list={[home ? 'home-page' : 'page']}>
-      {!home && <div class="inner-theme"><ThemeControls lang={lang} compact /></div>}
+      {!home && <div class="inner-theme appearance-controls"><LanguageSwitch lang={lang} class="language-toggle" /><ThemeControls lang={lang} compact /></div>}
       <slot />
-      {!home && <div class="page-language"><LanguageSwitch lang={lang} /></div>}
     </main>
 
 

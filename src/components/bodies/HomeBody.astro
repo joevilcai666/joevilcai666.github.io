@@ -4,9 +4,10 @@ import { WORK } from '../../data/work';
 import { getCollection } from 'astro:content';
 import HomeExperience from '../HomeExperience';
 import ThemeControls from '../ThemeControls.astro';
+import LanguageSwitch from '../LanguageSwitch.astro';
 import type { Lang } from '../../data/i18n';
 const { lang } = Astro.props as {lang: Lang};
 const posts = (await getCollection(lang === 'en' ? 'blogEn' : 'blog', ({data}) => !data.draft)).sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).map(post => ({id: post.id, title: post.data.title, description: post.data.description, date: post.data.pubDate.toLocaleDateString('en-CA')}));
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
-<HomeExperience lang={lang} projects={PROJECTS} work={WORK} posts={posts} baseUrl={baseUrl} client:load><ThemeControls lang={lang} compact /></HomeExperience>
+<HomeExperience lang={lang} projects={PROJECTS} work={WORK} posts={posts} baseUrl={baseUrl} client:load><div class="appearance-controls"><LanguageSwitch lang={lang} class="language-toggle" /><ThemeControls lang={lang} compact /></div></HomeExperience>

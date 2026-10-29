@@ -7,7 +7,7 @@ const articleSlugs = async (prefix = '') => (await readdir(new URL(`../dist/${pr
   .filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
 const articles = await articleSlugs();
 
-for (const page of ['work', 'projects', 'blog', ...['origin-im', 'origin-health', 'craft', 'prose'].map(id => `projects/${id}`), ...articles.map((slug) => `blog/${slug}`)]) {
+for (const page of ['', 'work', 'projects', 'blog', ...['origin-im', 'origin-health', 'craft', 'prose'].map(id => `projects/${id}`), ...articles.map((slug) => `blog/${slug}`)]) {
   for (const lang of ['zh', 'en']) {
     test(`${lang} ${page || 'home'}: language switch preserves the current page`, async () => {
       const html = await readPage(`${lang === 'en' ? 'en/' : ''}${page}`.replace(/\/$/, ''));

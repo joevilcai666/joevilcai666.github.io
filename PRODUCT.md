@@ -8,6 +8,6 @@
 
 Origin 展示为 Origin AI 与 Origin Health，提供 origin.town 官网入口。Skills 展示 writing-doc、how-it-works、product-prototype 与 google-ads 的公开 GitHub 仓库。当前职业经历为群忆智能科技 Shadoweave。
 
-全站没有永久顶栏；正文页保留返回与明暗切换，语言切换在页尾。项目出发点放在图片/体验上方。文章只显示日期，列表依日期排序。
+全站没有永久顶栏；正文页保留返回与明暗切换，语言切换在明暗切换旁。项目出发点放在图片/体验上方。文章只显示日期，列表依日期排序。
 
 技术为 Astro 静态构建，首页使用 React 和 Motion 管理交互，所有业务内容由现有数据和内容集合提供。本站没有用户账户或服务端数据库。
