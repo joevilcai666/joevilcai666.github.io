@@ -15,6 +15,7 @@
 ```mermaid
 flowchart TD
   Intro[身份、词条与完整自述] --> Pill[点击正文胶囊]
+  Intro --> Language[EN / 中文：切换当前页语言]
   Pill --> Focus[连接线延伸；周围文字模糊淡出]
   Focus --> Project[当前段落下方：项目原型与说明]
   Focus --> Skills[当前段落下方：公开 AI Skills]
@@ -94,16 +95,16 @@ URL 片段记录当前内容区，可以直接分享；浏览器前进后退会�
 | 层次 | 当前证据 |
 | --- | --- |
 | 代码 | 全站移除永久顶栏，首页不显示中文名；详情精简为产品出发点和体验；项目卡片不显示阶段或原型标签，Health 无全屏入口；写作文章论点、双语正文与摘要一致。四项 Skills、文章日期与 Health 交互原型已接入。 |
-| 本地构建 | 发布提交 `61c019cde845eae54d8ddb54eeebe9a02e0080d5` 在独立源码目录执行 `npm ci --no-audit --no-fund`、`npm test` 与 `npx tsc --noEmit`，生成 22 个页面，29 项检查通过。当前语言入口修复另补首页双向切换检查，共 31 项；发布核对见下方。 |
+| 本地构建 | 发布提交 `e0e0d096a2a5afd57a9988adc212d964a1d09420` 在独立源码目录执行 `npm ci --no-audit --no-fund`、`npm test` 与 `npx tsc --noEmit`，生成 22 个页面，31 项检查通过，包含首页双向语言切换。 |
 | 浏览器运行 | 已检查详情无顶栏/标签/图注、说明位置、博客顺序、四项 Skills。320×800 的文章、Skills 与 Health 详情没有横向溢出。 |
 | 本地交互 | 首页的空白收起、选择保护和主题检查已通过。Health 源 bundle 已检查今天、成长、拍照入口、明确的示例分析与管家。实际详情页 iframe 也通过键盘切换与临时 Chrome 的真实点击检查。 |
 | 动态效果 | 当前内置浏览器启用减少动态效果；已检查内容聚焦、关闭和展开后定位。另用 REA 临时 Chrome 的正常动效环境完成 Health、卡片内点击保持、模糊文字收起、Skills 与写作的 13 个场景步骤，控制台没有应用错误。截图不证明真实手机触摸体验或逐帧性能。 |
-| 线上运行 | https://joevilcai666.github.io/ 已有新版作品站；本次语言入口修复待推送和正式页面核对。此前 77 个公开文件已逐一校验，包括 Health 演示。 |
+| 线上运行 | https://joevilcai666.github.io/ 已发布语言入口修复。77 个公开页面与资源返回 200，并与 runner 产物逐文件匹配；首页与独立页顶部均有对应语言链接。在线浏览器预览超时，不计为线上点击复查通过。 |
 | 用户验收 | 用户已认可当前设计与项目文案，并授权推送远程及更新正式网站。 |
 
-网站功能发布提交为 `61c019cde845eae54d8ddb54eeebe9a02e0080d5`，本机 runner 实际检出的也是该提交，生成的 `gh-pages` 提交为 `5d98a1bed4ba3246c0b90b4e0869bc6967782eff`。独立源码检查环境为 macOS arm64、Node v24.18.0、npm 11.16.0。独立构建与 runner 的静态文件一致；仅两个首页的 Astro 自动生成实例标识不同，去掉该标识后内容一致。
+网站功能发布提交为 `e0e0d096a2a5afd57a9988adc212d964a1d09420`，本机 runner 实际检出的也是该提交，生成的 `gh-pages` 提交为 `7bfa3f179ff66a07ae79102673a3742460428687`。独立源码检查环境为 macOS arm64、Node v24.18.0、npm 11.16.0。独立构建与 runner 的静态文件一致；仅两个首页的 Astro 自动生成实例标识不同，去掉该标识后内容一致。
 
-本机 runner 的仓库范围已核实为 `joevilcai666/joevilcai666.github.io`。结论来自准确提交的本地检查、runner 实际产物和公开文件校验，不依赖 GitHub Actions 状态或计费信息。详细发布记录见 [2026-10-29 发布核对](docs/releases/2026-10-29.md)。
+本机 runner 的仓库范围已核实为 `joevilcai666/joevilcai666.github.io`。结论来自准确提交的本地检查、runner 实际产物和公开文件校验，不依赖 GitHub Actions 状态或计费信息。详细发布记录见 [语言入口发布核对](docs/releases/2026-10-29-language.md)。
 
 此前内容截图在 `docs/verification/content-20261029/`，布局与动效场景在 `docs/verification/portfolio-20261029/`；Health 原型独立检查在 `docs/verification/origin-health-embed-20261029/`，本轮详情页检查在 `docs/verification/details-20261029/`。本轮文章与项目精简的截图在 `docs/verification/copy-20261029/`。文章和经历的来源概括在 `docs/research/`，不保存 IMA 原文或凭据。未做真实手机触摸或多浏览器验收。
 
