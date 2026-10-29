@@ -94,15 +94,17 @@ URL 片段记录当前内容区，可以直接分享；浏览器前进后退会�
 | 层次 | 当前证据 |
 | --- | --- |
 | 代码 | 全站移除永久顶栏，首页不显示中文名；详情精简为产品出发点和体验；项目卡片不显示阶段或原型标签，Health 无全屏入口；写作文章论点、双语正文与摘要一致。四项 Skills、文章日期与 Health 交互原型已接入。 |
-| 本地构建 | `npm test` 生成 22 个页面，29 项检查通过；`npx tsc --noEmit` 通过。检查覆盖双语文章、项目详情与 RSS。 |
+| 本地构建 | 发布提交 `61c019cde845eae54d8ddb54eeebe9a02e0080d5` 在独立源码目录执行 `npm ci --no-audit --no-fund`、`npm test` 与 `npx tsc --noEmit`，生成 22 个页面，29 项检查通过。检查覆盖双语文章、项目详情与 RSS。 |
 | 浏览器运行 | 已检查详情无顶栏/标签/图注、说明位置、博客顺序、四项 Skills。320×800 的文章、Skills 与 Health 详情没有横向溢出。 |
 | 本地交互 | 首页的空白收起、选择保护和主题检查已通过。Health 源 bundle 已检查今天、成长、拍照入口、明确的示例分析与管家。实际详情页 iframe 也通过键盘切换与临时 Chrome 的真实点击检查。 |
 | 动态效果 | 当前内置浏览器启用减少动态效果；已检查内容聚焦、关闭和展开后定位。另用 REA 临时 Chrome 的正常动效环境完成 Health、卡片内点击保持、模糊文字收起、Skills 与写作的 13 个场景步骤，控制台没有应用错误。截图不证明真实手机触摸体验或逐帧性能。 |
-| 线上运行 | 正式网址为 https://joevilcai666.github.io/；本轮新版待源码推送、runner 构建及正式页面核对。两个 Skills 仓库名称已在线修改并核实。 |
+| 线上运行 | 新版已发布至 https://joevilcai666.github.io/。77 个公开页面及资源文件均返回 200，SHA-256 与本机 runner 的发布产物一致，包括 Health 演示。正式站点的内置浏览器预览超时，未记录新的线上点击验收。两个 Skills 仓库名称已在线修改并核实。 |
 | 用户验收 | 用户已认可当前设计与项目文案，并授权推送远程及更新正式网站。 |
 
-本地工作区的既有验证不代表正式站点；发布时另在准确提交的独立源码目录运行检查，并核对公开页面。本机 runner 的已知仓库范围为 `joevilcai666/joevilcai666.github.io`；本轮直接运行本地命令，不依赖 GitHub Actions 状态。
+网站功能发布提交为 `61c019cde845eae54d8ddb54eeebe9a02e0080d5`，本机 runner 实际检出的也是该提交，生成的 `gh-pages` 提交为 `5d98a1bed4ba3246c0b90b4e0869bc6967782eff`。独立源码检查环境为 macOS arm64、Node v24.18.0、npm 11.16.0。独立构建与 runner 的静态文件一致；仅两个首页的 Astro 自动生成实例标识不同，去掉该标识后内容一致。
+
+本机 runner 的仓库范围已核实为 `joevilcai666/joevilcai666.github.io`。结论来自准确提交的本地检查、runner 实际产物和公开文件校验，不依赖 GitHub Actions 状态或计费信息。详细发布记录见 [2026-10-29 发布核对](docs/releases/2026-10-29.md)。
 
 此前内容截图在 `docs/verification/content-20261029/`，布局与动效场景在 `docs/verification/portfolio-20261029/`；Health 原型独立检查在 `docs/verification/origin-health-embed-20261029/`，本轮详情页检查在 `docs/verification/details-20261029/`。本轮文章与项目精简的截图在 `docs/verification/copy-20261029/`。文章和经历的来源概括在 `docs/research/`，不保存 IMA 原文或凭据。未做真实手机触摸或多浏览器验收。
 
-最后更新时间：2026-10-29（Asia/Shanghai；三个项目的动机与用途文案已核对）
+最后更新时间：2026-10-29（Asia/Shanghai；正式发布与公开资源已核对）
