@@ -1,10 +1,9 @@
 // 站点全局配置 —— 改这里就能换掉全站的个人信息
 export const SITE = {
-  cnName: '蔡骥淳',
   enName: 'Joe',
-  fullName: '蔡骥淳 Joe Cai',
+  fullName: 'Joe Cai',
   title: 'Joe Cai',
-  description: '蔡骥淳（Joe）的个人网站 —— AI Agent 方向产品负责人，专注 Agent 基础设施与商业化落地。博客、项目与职业经历。',
+  description: 'Joe Cai 的个人网站：关于产品、创业与创造的想法，以及正在做的产品与开源 Skills。',
   // 社交链接（按需增删）
   elsewhere: [
     { label: 'GitHub', href: 'https://github.com/joevilcai666' },

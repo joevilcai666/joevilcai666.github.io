@@ -1,0 +1,29 @@
+---
+import type { Lang } from '../data/i18n';
+const { lang, compact = false } = Astro.props as {lang: Lang; compact?: boolean};
+const en = lang === 'en';
+---
+<div class:list={["theme-options", {"theme-compact": compact}]} role="group" aria-label={en ? 'Color theme' : '颜色主题'}>
+        {!compact && <button type="button" data-theme-choice="system" aria-label={en ? 'System theme' : '跟随系统'} title={en ? 'System' : '跟随系统'} aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></button>}
+        <button type="button" data-theme-choice="light" aria-label={en ? 'Light theme' : '浅色'} title={en ? 'Light' : '浅色'} aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg></button>
+        <button type="button" data-theme-choice="dark" aria-label={en ? 'Dark theme' : '深色'} title={en ? 'Dark' : '深色'} aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg></button>
+      </div>
+<script>
+  const preference = matchMedia('(prefers-color-scheme: dark)');
+  let selected = 'system';
+  try { const saved = localStorage.getItem('joe-color-theme'); if (saved && ['system', 'light', 'dark'].includes(saved)) selected = saved; } catch {}
+  function applyTheme() {
+    const dark = selected === 'dark' || (selected === 'system' && preference.matches);
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0a0a0a' : '#ffffff');
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === (button.closest('.theme-compact') ? (dark ? 'dark' : 'light') : selected))));
+  }
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]').forEach(button => button.addEventListener('click', () => {
+    selected = button.dataset.themeChoice!;
+    try { localStorage.setItem('joe-color-theme', selected); } catch {}
+    applyTheme();
+  }));
+  preference.addEventListener('change', applyTheme);
+  applyTheme();
+</script>

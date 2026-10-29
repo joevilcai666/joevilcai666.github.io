@@ -1,0 +1,15 @@
+---
+import {t} from '../../data/i18n';
+import {withBase} from '../../data/site';
+const {project,lang} = Astro.props;
+const en = lang === 'en';
+---
+<div class="back-line"><a href={withBase(en ? '/en/projects/' : '/projects/')}>{en ? '← All projects' : '← 全部项目'}</a></div>
+<article class="project-detail-page">
+  <h1>{project.name}</h1>
+  <p class="project-detail-description">{t(project.description,lang)}</p>
+  {project.links?.length > 0 && <div class="project-detail-links">
+    {project.links?.map(link => <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}
+  </div>}
+  {project.prototype ? <div class="product-experience"><iframe src={withBase(project.prototype)} title={en ? 'Explore Origin Health' : '体验 Origin Health'} loading="lazy" sandbox="allow-scripts allow-same-origin" /></div> : <figure>{project.previews ? <div class="project-detail-gallery">{project.previews.map((preview, index) => <img src={withBase(preview)} alt={`${project.name} ${index + 1}`} />)}</div> : <img src={withBase(project.preview)} alt={project.name} />}</figure>}
+</article>

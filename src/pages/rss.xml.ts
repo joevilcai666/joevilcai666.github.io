@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: '蔡骥淳 · Joe 的博客',
+    title: 'Joe Cai 的博客',
     description: '大模型记忆系统、工程笔记与长文翻译。',
     site: context.site ?? 'https://example.com',
     items: posts.map((post) => ({

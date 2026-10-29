@@ -1,10 +1,12 @@
-// 项目数据 —— Origin IM / Craft / Prose（信息来自 joevilcai666 的仓库文档）
+// 个人项目；Origin 的官网与原型素材来自 origin.town。origin-im 保留为旧链接标识。
 import type { Localized } from './i18n';
 
 export interface Project {
   id: string;
   name: string;
-  status: Localized;
+  preview: string;
+  previews?: string[];
+  prototype?: string;
   tagline: Localized;
   description: Localized;
   links?: { label: string; href: string }[];
@@ -15,37 +17,53 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: 'origin-im',
+    preview: '/projects/origin-im-prototype.png',
     accent: '#3d7bd6',
-    name: 'Origin IM',
-    status: { zh: '规格已确认', en: 'Spec approved' },
-    tagline: { zh: 'iMessage 里的私人 AI 管家', en: 'A proactive AI butler living in iMessage' },
+    name: 'Origin AI',
+    tagline: { zh: 'iMessage 里的私人 AI 助手', en: 'A personal AI assistant in iMessage' },
     description: {
-      zh: '工作、健康、随手想法和长期托付，在同一个 iMessage 对话中自然连续；网页端用于连接数据、查看完整成果与使用长期工具。产品与 v4 交互设计已获确认，进入研发阶段。',
-      en: 'Work, health, quick thoughts and long-horizon commitments flow through one continuous iMessage conversation; a companion web app connects data, shows full results and hosts long-term tools. Product and v4 interaction design approved; now entering engineering.',
+      zh: '很多日常小事本身不难，却要一直记着、追着办，我不想把精力耗在这里。我在做 Origin AI，希望和我一样被杂事打断的人，能在 iMessage 里交代一件事，去忙自己的事，再回来查看结果。',
+      en: 'Small everyday tasks can take more attention to remember and follow up on than they take to do. I am building Origin AI for people like me who want to hand something over in iMessage, get on with their day, and come back to the result.',
     },
+    links: [{label: 'origin.town', href: 'https://www.origin.town'}],
     stack: ['iMessage', 'AI Agent', '0→1'],
   },
   {
+    id: 'origin-health',
+    name: 'Origin Health',
+    preview: '/projects/origin-health-home.png',
+    previews: ['/projects/origin-health-home.png', '/projects/origin-health-growth.png'],
+    prototype: '/prototypes/origin-health/index.html',
+    accent: '#4a7159',
+    tagline: { zh: '找到适合自己的健康节奏', en: 'A healthier life, in your own way' },
+    description: {
+      zh: '想把身体照顾好，却不知道每天该怎么吃、怎么练、怎么睡。Origin Health 帮你把这些事安排进生活，记录每天的变化，没时间或状态不好时也能调整计划。',
+      en: 'You want to take better care of yourself, but need help deciding what to eat, how to exercise, and when to sleep. Origin Health helps you plan your day, keep a record, and adjust when time or energy runs short.',
+    },
+    links: [{label: 'origin.town', href: 'https://www.origin.town/health/'}],
+    stack: ['Health', 'Daily habits', 'Social'],
+  },
+  {
     id: 'craft',
+    preview: '/projects/craft-prototype.png',
     accent: '#e0862a',
     name: 'Craft',
-    status: { zh: '开发中', en: 'In development' },
-    tagline: { zh: '本地优先的阅读与写作工具', en: 'Local-first reading & writing' },
+    tagline: { zh: '能对着原文提问的阅读与写作工具', en: 'Read, ask questions, and write with your sources close by' },
     description: {
-      zh: '帮你读懂资料、理清思路、用自己的话写出想法。Mac 优先、本地优先：本地读写、笔记、搜索与导出免费，付费只覆盖跨设备同步与托管 AI。',
-      en: 'Understand what you read, think it through, and write in your own words. Mac-first and local-first: reading, writing, notes, search and export are free; only cross-device sync and hosted AI are paid.',
+      zh: '我喜欢阅读，遇到不理解的地方想问明白，有了想法也想接着写下来。Craft 是为这样的读者做的：对着原文提问、做笔记，写作时随时回看材料。',
+      en: 'I like to read, ask about what I do not understand, and write down the ideas that come to me. Craft is for readers who want to do the same: ask questions about a passage, take notes, and return to the source as they write.',
     },
     stack: ['macOS', 'Local-first', 'Reading / Writing'],
   },
   {
     id: 'prose',
+    preview: '/projects/prose-prototype.png',
     accent: '#8a6fd1',
     name: 'Prose',
-    status: { zh: '首版规划中', en: 'First version planned' },
-    tagline: { zh: '面向产品负责人的文字规则编辑器', en: 'Plain-language rules for software' },
+    tagline: { zh: '用文字读懂、修改和检查软件', en: 'Understand, change, and check software through writing' },
     description: {
-      zh: '让不写代码的产品负责人持续读懂、修改并验证软件。独立 macOS App，用代码编辑器式交互维护 Markdown 功能规则，保留可纠正的理解与运行证据；首版完整支持 Craft 的导出旅程。',
-      en: 'Lets product leads who don\'t write code keep reading, modifying and verifying real software. A standalone macOS app with code-editor-style interaction over Markdown feature rules, keeping correctable understanding and run evidence; first version fully supports Craft\'s export journeys.',
+      zh: '和编程 agent 做产品时，我花了不少时间反复解释需求、排查问题。所以我在做 Prose，让不写代码的产品负责人能用文字描述产品的工作方式，核对 AI 的理解，并检查修改后的实际结果。',
+      en: 'When I work on products with coding agents, I spend a lot of time explaining requirements again and working through problems. I am building Prose so product leads who do not write code can describe how their software should work, review the AI\'s understanding, and check the actual result of a change.',
     },
     stack: ['macOS', 'Rules as Code', 'Code-OSS'],
   },

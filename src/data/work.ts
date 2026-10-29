@@ -17,31 +17,57 @@ export interface WorkEntry {
 
 export const WORK: WorkEntry[] = [
   {
-    period: '2025.12 — 至今 / Present',
+    period: '2026.07 — 至今 / Present',
+    role: { zh: '产品负责人', en: 'Product Lead' },
+    org: { zh: '群忆智能科技（Shadoweave）', en: 'Shadoweave · Agent memory startup' },
+    logo: '/logos/shadoweave.png',
+    href: 'https://shadoweave.ai',
+    current: true,
+    summary: {
+      zh: '在 Agent 记忆基础设施创业公司，从 0 到 1 搭建产品团队，负责产品战略，推进个人记忆产品与面向开发者的记忆服务。',
+      en: 'Built a product team from scratch at an agent-memory startup, owning product strategy across personal memory and developer-facing memory services.',
+    },
+    highlights: [
+      {
+        zh: '招聘并管理 5 名产品团队成员，制定阶段目标和执行计划；负责官网、融资材料与产品对外表达。',
+        en: 'Recruited and managed five product-team members, defined milestones and delivery plans, and led the website, fundraising materials, and product communication.',
+      },
+      {
+        zh: '主导 Personal Memory Bank 从产品定义到 MVP 内测，设计飞书资料接入、记忆整理与 Agent 调用流程。',
+        en: 'Led Personal Memory Bank from product definition to MVP testing, covering Feishu data import, memory organization, and agent access.',
+      },
+      {
+        zh: '推进 HMS Elite 产品化与 B 端 SaaS 雏形，围绕 AI 角色、陪伴机器人和 AI 穿戴设备，与 50+ 家潜在客户开展需求沟通及试用/POC 探索；尚未完成正式客户接入。',
+        en: 'Developed the product direction for HMS Elite and an early B2B SaaS offering. Explored needs and trials/POCs with 50+ prospective customers across AI characters, companion robots, and wearables; formal customer integrations were not yet complete.',
+      },
+      {
+        zh: '制定记忆评测流程，组织 LoCoMo、LongMemEval、EgoLife 基准与竞品对比，用准确性、延迟、成本和错题分析确定迭代重点。',
+        en: 'Defined memory-evaluation workflows and organized LoCoMo, LongMemEval, EgoLife, and competitor comparisons, using accuracy, latency, cost, and error analysis to set priorities.',
+      },
+    ],
+    stack: ['Agent Memory', 'Product Strategy', 'Team Building', 'AI Evals'],
+  },
+  {
+    period: '2025.12 — 2026.07',
     role: { zh: '产品负责人', en: 'Product Lead' },
     org: { zh: 'Anyway · Agent 支付创业公司', en: 'Anyway · Agent payments startup' },
     logo: '/logos/anyway.svg',
     href: 'https://anyway.sh',
-    current: true,
     summary: {
-      zh: '从 0 到 1 主导构建「Agent 时代的支付网络」：围绕 Traces / Products / Orders / Wallets 打通 Agent 的「行为记录 → 商品定义 → 订单结算 → 多轨支付」全链路，让每一个 Agent 都能安全、可审计地收款、付款、对账与验收。',
-      en: 'Building the payment network for the agent age from 0 to 1 — a full pipeline across Traces / Products / Orders / Wallets that lets every agent accept, send, reconcile and verify payments safely and auditably.',
+      zh: '负责早期团队搭建与支付产品，帮助公司从 3 人扩展到 8 名全职成员，推动业务从 0 达到 10 万美元年化手续费收入，验证早期付费需求。',
+      en: 'Built the early team and payment products, helping the company grow from three to eight full-time members and from zero to US$100,000 in annualized transaction-fee revenue, validating early willingness to pay.',
     },
     highlights: [
       {
-        zh: '提出「Traces as the new Receipt」：把 Agent 执行过程结构化为可验证的支付凭证，在 Stripe ACP、Google AP2、Coinbase x402 等协议分裂的竞争中确立差异化定位',
-        en: 'Proposed "Traces as the new Receipt" — structuring agent execution into verifiable payment receipts, a differentiated position amid fragmented protocols (Stripe ACP / Google AP2 / Coinbase x402)',
+        zh: '面向尚无海外主体的小团队和独立开发者，主导法币与加密货币多币种收款产品，构成公司主要收入来源。',
+        en: 'Led multi-currency fiat and crypto collections for small teams and independent developers without an overseas entity, forming the main source of revenue.',
       },
       {
-        zh: '主导收款与钱包产品：Payment Link 支持 One-time / Subscription / Usage-based 计费与 AI 定价；Agent Wallet 落地 Stripe Connect 法币 + USDC on Base 稳定币双轨，PolicyGuard 让 Agent 在受控边界内自主付款',
-        en: 'Owned monetization and wallet products: Payment Links with one-time / subscription / usage-based billing and AI pricing; Agent Wallet with dual-rail Stripe Connect + USDC on Base settlement, plus PolicyGuard controls for autonomous agent payments',
-      },
-      {
-        zh: '定义 Freemium + Subscription + Take rate 三段式收入模型，以及 GMV、A2A 调用笔数、Trace 覆盖率、验收成功率等北极星指标',
-        en: 'Defined the freemium + subscription + take-rate revenue model and north-star metrics (GMV, A2A calls, trace coverage, acceptance rate)',
+        zh: '主导个人 Agent 自动付款产品，通过钱包、支付授权和风控规则，让 Agent 在用户设定的边界内付款，并保留可追溯交易记录。',
+        en: 'Led autonomous agent-payment design across wallets, payment authorization, and risk controls, with user-defined limits and traceable transaction records.',
       },
     ],
-    stack: ['Agent Payments', 'Product Strategy', '0→1', 'Fintech'],
+    stack: ['Agent Payments', 'Team Building', 'Early Commercialization'],
   },
   {
     period: '2023.08 — 2025.12',

@@ -1,8 +1,9 @@
 ---
 import '@fontsource-variable/inter';
 import '../styles/global.css';
-import Icon from '../components/icons/Icon.astro';
+import ThemeControls from '../components/ThemeControls.astro';
 import LanguageSwitch from '../components/LanguageSwitch.astro';
+import '../styles/portfolio.css';
 import { SITE, withBase } from '../data/site';
 import { UI, counterpartPath, hasCounterpart, type Lang } from '../data/i18n';
 
@@ -37,7 +38,16 @@ const altEn = new URL(withBase(counterpartPath(path, 'zh')), Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try {
+        const theme = localStorage.getItem('joe-color-theme') || 'system';
+        const dark = theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+      } catch {}
+    </script>
     <meta name="theme-color" content="#ffffff" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
@@ -58,44 +68,18 @@ const altEn = new URL(withBase(counterpartPath(path, 'zh')), Astro.site);
     <meta name="twitter:card" content="summary" />
   </head>
   <body
+    class:list={[home ? 'portfolio-home' : 'portfolio-inner']}
     data-base-home={homeHref}
     data-base-work={withBase(lang === 'en' ? '/en/work' : '/work')}
     data-base-projects={withBase(lang === 'en' ? '/en/projects/' : '/projects/')}
     data-base-blog={withBase(lang === 'en' ? '/en/blog/' : '/blog/')}
   >
-    <main class:list={['page', home && 'stack']}>
-      {
-        home ? (
-          <header class="masthead">
-            <div class="masthead-top">
-              <h1>{SITE.fullName}</h1>
-              <LanguageSwitch lang={lang} class="language-switch" />
-            </div>
-            <p class="tagline">{ui.tagline}</p>
-            <div class="icon-row" role="group" aria-label={ui.contactLabel}>
-              <a class="icon-btn" href="https://github.com/joevilcai666" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
-                <Icon name="github" size={16} />
-              </a>
-              <a class="icon-btn" href="https://www.linkedin.com/in/jichun46/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
-                <Icon name="linkedin" size={16} />
-              </a>
-              <a class="icon-btn" href="mailto:jichun.cai@outlook.com" aria-label={ui.emailLabel} title={ui.emailLabel}>
-                <Icon name="mail" size={16} />
-              </a>
-            </div>
-            <nav class="site-nav" aria-label={ui.navigationLabel}>
-              <a href={withBase(lang === 'en' ? '/en/blog/' : '/blog/')}>
-                <span>{ui.blogTitle}</span>
-                <span class="nav-arrow" aria-hidden="true">→</span>
-              </a>
-            </nav>
-          </header>
-        ) : null
-      }
+    <main class:list={[home ? 'home-page' : 'page']}>
+      {!home && <div class="inner-theme"><ThemeControls lang={lang} compact /></div>}
       <slot />
+      {!home && <div class="page-language"><LanguageSwitch lang={lang} /></div>}
     </main>
 
-    <footer class="colophon">© {new Date().getFullYear()} {SITE.enName} · {ui.tagline}</footer>
 
     <script>
       // 只给指针展开添加反馈。键盘展开立即呈现，快速开合时取消旧动画。

@@ -1,0 +1,8 @@
+---
+import {PROJECTS} from '../../data/projects';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectDetailBody from '../../components/bodies/ProjectDetailBody.astro';
+export function getStaticPaths(){ return PROJECTS.map(project => ({params:{id:project.id},props:{project}})); }
+const {project} = Astro.props;
+---
+<BaseLayout lang="zh" title={project.name} description={project.tagline.zh}><ProjectDetailBody lang="zh" project={project}/></BaseLayout>

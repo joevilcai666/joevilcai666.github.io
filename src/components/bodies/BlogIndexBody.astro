@@ -2,7 +2,6 @@
 import type { CollectionEntry } from 'astro:content';
 import { withBase } from '../../data/site';
 import { UI, type Lang } from '../../data/i18n';
-import LanguageSwitch from '../LanguageSwitch.astro';
 
 interface Props {
   lang: Lang;
@@ -19,7 +18,6 @@ const fmt = (d: Date) =>
 
 <div class="back-line">
   <a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a>
-  <LanguageSwitch lang={lang} />
 </div>
 
 <h1 class="section-h">{ui.blogTitle}</h1>

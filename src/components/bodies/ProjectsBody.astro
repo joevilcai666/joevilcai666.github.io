@@ -1,53 +1,16 @@
 ---
 import { PROJECTS } from '../../data/projects';
-import { UI, t, type Lang } from '../../data/i18n';
-import LanguageSwitch from '../LanguageSwitch.astro';
+import { UI, t } from '../../data/i18n';
 import { withBase } from '../../data/site';
-
-const { lang } = Astro.props;
+const {lang} = Astro.props;
 const ui = UI[lang];
 const base = lang === 'en' ? '/en' : '';
-
-const markOf = (name: string) => name.trim().charAt(0).toUpperCase();
-const isLive = (statusZh: string) => statusZh === '开发中';
 ---
-
-<div class="back-line">
-  <a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a>
-  <LanguageSwitch lang={lang} />
-</div>
-
-<h1 class="section-h">{ui.projectsTitle}</h1>
-<p class="tagline" style="margin:0.375rem 0 2rem">{ui.projectsSub}</p>
-
-<div class="card-grid">
-  {
-    PROJECTS.map((p) => (
-      <article id={p.id} class="card">
-        <div class="card-head">
-          <h2 class="card-title">
-            <span class="card-mark" style={`--mark:${p.accent}`} aria-hidden="true">{markOf(p.name)}</span>
-            {p.links && p.links.length > 0 ? (
-              <a href={p.links[0].href} target="_blank" rel="noopener">{p.name}</a>
-            ) : (
-              <span>{p.name}</span>
-            )}
-            {isLive(t(p.status, 'zh')) && <span class="dot" aria-hidden="true" />}
-          </h2>
-        </div>
-        <p class="card-tag">{t(p.tagline, lang)}</p>
-        <p class="card-desc">{t(p.description, lang)}</p>
-        {p.links && p.links.length > 0 && (
-          <p class="card-links">
-            {p.links.map((l, i) => (
-              <>
-                {i > 0 && ' · '}
-                <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
-              </>
-            ))}
-          </p>
-        )}
-      </article>
-    ))
-  }
+<div class="back-line"><a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a></div>
+<h1 class="section-h projects-heading">{ui.projectsTitle}</h1>
+<div class="visual-projects">
+  {PROJECTS.map(project => <article class={`visual-project project-${project.id}`} id={project.id}>
+    <a class="project-cover" href={withBase(`${base}/projects/${project.id}/`)}>{(project.previews || [project.preview]).map((preview, index) => <img src={withBase(preview)} alt={`${project.name} ${lang === 'zh' ? '设计原型' : 'design prototype'} ${index + 1}`} loading="lazy" />)}</a>
+    <div class="visual-project-copy"><div class="visual-project-title"><h2>{project.name}</h2></div><p class="visual-project-tagline">{t(project.tagline,lang)}</p><p class="visual-project-description">{t(project.description,lang)}</p><div class="project-footnotes"><div class="project-link-group">{project.links?.map(link => <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}<a href={withBase(`${base}/projects/${project.id}/`)}>{lang === 'zh' ? '查看项目' : 'View project'} ↗</a></div></div></div>
+  </article>)}
 </div>

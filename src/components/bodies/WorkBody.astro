@@ -1,7 +1,6 @@
 ---
 import { WORK } from '../../data/work';
 import { UI, t, type Lang } from '../../data/i18n';
-import LanguageSwitch from '../LanguageSwitch.astro';
 import { withBase } from '../../data/site';
 
 const { lang } = Astro.props;
@@ -11,7 +10,6 @@ const base = lang === 'en' ? '/en' : '';
 
 <div class="back-line">
   <a href={withBase(base ? '/en/' : '/')}>{ui.backLabel}</a>
-  <LanguageSwitch lang={lang} />
 </div>
 
 <h1 class="section-h">{ui.workTitle}</h1>

@@ -1,99 +1,49 @@
-# 蔡骥淳 · Joe 的个人网站
+# Joe Cai 的个人网站
 
-极简个人网站：博客、项目、职业经历。基于 [Astro](https://astro.build) 构建，部署在 GitHub Pages。
+双语个人网站，展示产品、公开 AI Skills、职业经历和三篇随笔。使用 Astro 生成静态页面，首页通过 React 和 Motion 提供正文胶囊展开、连接线和内容聚焦。支持浅色、深色和减少动态效果。
 
-设计：白底、墨色文字、细灰边框的极简卡片风格。桌面端项目双列，窄屏单列；项目字母标保留各自颜色。当前使用浅色模式，字体自托管。按钮有轻微按压反馈，职业经历支持鼠标和键盘展开，并适配“减少动态效果”设置。
-
-产品当前行为、验证范围和限制见 [HOW_IT_WORKS.md](HOW_IT_WORKS.md)。
+产品当前行为、验证范围与限制见 [HOW_IT_WORKS.md](HOW_IT_WORKS.md)。产品与设计约定见 [PRODUCT.md](PRODUCT.md) 和 [DESIGN.md](DESIGN.md)。
 
 ## 本地开发
 
-```bash
-npm install
-npm run dev       # 开发服务器 http://localhost:4321
-npm run build     # 构建到 dist/
-npm test          # 构建并检查双语切换、博客入口、空状态与 RSS
-npm run preview   # 本地预览构建产物
-```
-
-## 部署架构（当前已上线）
-
-- **仓库**：`joevilcai666/joevilcai666.github.io`（用户站点，网址 `https://joevilcai666.github.io/`）
-- **构建**：推送到 `main` 后，由**本机自托管 runner**（`~/actions-runner/website-runner`，launchd 常驻服务
-  `com.github.actions-runner.website`）执行 `.github/workflows/deploy.yml`：
-  `npm ci` → `npm run build` → 将 `dist/` 强推到 `gh-pages` 分支
-- **发布**：GitHub Pages 从 `gh-pages` 分支根目录发布
-- **不使用** GitHub 托管的 Actions 虚拟机，构建完全跑在自己的 Mac 上
-
-### Runner 运维
+使用 Node 24 和 npm。
 
 ```bash
-# 状态 / 日志
-launchctl list | grep actions-runner
-tail -f ~/actions-runner/website-runner/launchd.log
-
-# 重启 / 停止
-launchctl kickstart -k gui/$(id -u)/com.github.actions-runner.website
-launchctl unload ~/Library/LaunchAgents/com.github.actions-runner.website.plist
-
-# 换机器或重装：重新注册
-cd ~/actions-runner/website-runner && ./config.sh --url https://github.com/joevilcai666/joevilcai666.github.io --token <注册令牌>
+npm ci
+npm run dev
+npm test
+npx tsc --noEmit
+npm run preview
 ```
 
-### 从零重新部署（换仓库/换账号时）
+开发地址为 `http://127.0.0.1:4321/`。`npm test` 构建网站并运行双语页面、项目、博客与 RSS 的检查。`npm run preview` 预览 `dist/` 中的构建产物。
 
-1. 修改 `astro.config.mjs` 的 `site` 和 `base`（用户仓库 base 用 `'/'`，项目仓库用 `'/<仓库名>'`）。
-2. 推送到仓库 `main` 分支（workflow 会自动产出 `gh-pages` 分支）。
-3. 仓库 **Settings → Pages → Build and deployment → Source** 选 **Deploy from a branch**，
-   Branch 选 **gh-pages / (root)**。
-   注：GitHub CLI 的 OAuth 令牌没有 Pages 设置的写权限（API 会 404），这一步只能在网页设置里完成。
+## 发布
 
-### 使用自定义域名（推荐，国内访问更稳）
+- 源码仓库：`joevilcai666/joevilcai666.github.io`，分支 `main`。
+- 正式地址：<https://joevilcai666.github.io/>。
+- 推送 `main` 后，现有发布流程由本机自托管 runner 构建。其注册范围是上述仓库，目录为 `~/actions-runner/website-runner`。
+- `.github/workflows/deploy.yml` 执行 `npm ci` 和 `npm run build`，将静态产物发布到 `gh-pages`。GitHub Pages 从该分支根目录提供网站。
+- 发布验证须在准确提交上运行本地检查，并核对正式地址的实际内容。runner 服务运行、GitHub Actions 状态或计费信息都不能代替验证。
 
-1. 买一个域名（阿里云/腾讯云/Cloudflare 等）。
-2. 仓库 **Settings → Pages → Custom domain** 填入域名，或在本项目 `public/` 下新建 `CNAME` 文件写入域名。
-3. 到域名服务商添加 CNAME 记录指向 `<用户名>.github.io`。
-4. 把 `astro.config.mjs` 的 `site` 改成自定义域名。
+不要在日常源码推送中手动强推 `main`。正式站点尚未显示新版时，分别检查本机 runner 的实际工作、`gh-pages` 内容和公开页面缓存。
 
-## 如何更新内容
+## 内容位置
 
-| 要改什么 | 改哪里 |
+| 内容 | 文件 |
 | --- | --- |
-| 名字、简介、社交链接 | `src/data/site.ts` + `src/components/bodies/HomeBody.astro` + `src/layouts/BaseLayout.astro` |
+| 首页自述与胶囊交互 | `src/components/HomeExperience.tsx` |
+| 项目与双语介绍 | `src/data/projects.ts` |
+| AI Skills 与 GitHub 链接 | `src/data/skills.ts` |
 | 职业经历 | `src/data/work.ts` |
-| 项目 | `src/data/projects.ts` |
-| 发博客 | 在 `src/content/blog/` 新建中文 `.md` 文件，并在 `src/content/blog-en/` 添加同名英文文件（frontmatter 见下方） |
-| 颜色 / 字体 / 版式 | `src/styles/global.css` 顶部的 CSS 变量 |
+| 全站信息与双语文案 | `src/data/site.ts`、`src/data/i18n.ts` |
+| 中文文章与英文对应稿 | `src/content/blog/`、`src/content/blog-en/` |
+| 页面主题与排版 | `src/styles/portfolio.css` |
+| 页面、详情和文章布局 | `src/pages/`、`src/components/bodies/`、`src/layouts/` |
+| 项目封面与 Health 交互演示 | `public/projects/`、`public/prototypes/origin-health/` |
 
-博客文章 frontmatter 模板：
+首页、列表与详情共用项目数据。新文章以同名文件提供中英文版本；标记 `draft: true` 的文章不发布。文章日期为作者选择的展示日期。
 
-当前博客为空。清空全部文章后，先运行 `npm run astro -- sync --force`，再构建，以清除 Astro 的旧内容缓存。
+Health 演示来自认可的中文原型，英文详情也使用同一演示。演示只保存独立的本地状态，不连接真实健康、AI、支付或用户账户。第三方许可随静态资源保留。
 
-```markdown
----
-title: '文章标题'
-description: '一句话摘要（用于 SEO 和 RSS）'
-pubDate: 2026-09-14
-tags: ['标签1', '标签2']
-kind: '原创'    # 原创 | 翻译（翻译会在列表中显示「译」标）
-draft: false    # true 则不发布
----
-
-正文（Markdown）……
-```
-
-## 项目结构
-
-```
-personal-website/
-├── astro.config.mjs        # 站点地址与 base 路径
-├── .github/workflows/      # GitHub Pages 自动部署
-├── public/                 # favicon、静态资源
-└── src/
-    ├── content/blog/       # 博客文章（Markdown）
-    ├── data/               # 个人信息、经历、项目数据
-    ├── components/         # 「骥」印章组件
-    ├── layouts/            # 全局布局（页头/页脚/SEO）
-    ├── pages/              # 首页 / work / projects / blog / rss
-    └── styles/global.css   # 设计系统（纸·墨·封蜡）
-```
+本机研究记录、浏览器检查截图、会话日志和早期临时原型不是网站发布内容。IMA 凭据位于仓库外，访客不会连接 IMA。

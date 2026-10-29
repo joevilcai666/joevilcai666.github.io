@@ -27,7 +27,6 @@ export const UI: Record<Lang, {
   workRange: string;
   workSub: string;
   projectsTitle: string;
-  projectsSub: string;
   blogTitle: string;
   blogSub: string;
   blogEmpty: string;
@@ -46,7 +45,7 @@ export const UI: Record<Lang, {
     navigationLabel: '内容导航',
     present: '至今',
     htmlLang: 'zh-CN',
-    description: '蔡骥淳（Joe）的个人网站 —— AI Agent 方向产品负责人，专注 Agent 基础设施与商业化落地。博客、项目与职业经历。',
+    description: 'Joe Cai 的个人网站：关于产品、创业与创造的想法，以及正在做的产品与开源 Skills。',
     tagline: 'AI Agent 方向产品负责人 / product lead',
     aboutTitle: '关于',
     portfolioTitle: '项目',
@@ -55,9 +54,8 @@ export const UI: Record<Lang, {
     workRange: '2019 — 至今',
     workSub: '做过的岗位、负责过的事、走过的路。',
     projectsTitle: '项目',
-    projectsSub: '在做的、做过的，以及还在纸上打磨的。',
     blogTitle: '博客',
-    blogSub: '技术笔记与翻译，写给自己，也写给同样在琢磨这些问题的人。',
+    blogSub: '关于产品、创业，以及人与环境的思考。',
     blogEmpty: '还没有文章。',
     backLabel: '← 返回',
     more: '全部文章 →',
@@ -74,7 +72,7 @@ export const UI: Record<Lang, {
     navigationLabel: 'Content navigation',
     present: 'Present',
     htmlLang: 'en',
-    description: 'Joe Cai (Cai Jichun) — product lead for AI agent infrastructure and commercialization. Blog, projects and career.',
+    description: 'Joe Cai’s thoughts on products, startups, and making things, alongside current products and open-source skills.',
     tagline: 'building products for the agent age',
     aboutTitle: 'About',
     portfolioTitle: 'Projects',
@@ -83,9 +81,8 @@ export const UI: Record<Lang, {
     workRange: '2019 — Present',
     workSub: 'The roles I held, the things I owned, the road so far.',
     projectsTitle: 'Projects',
-    projectsSub: 'Things in flight, things done, and things still on paper.',
     blogTitle: 'Blog',
-    blogSub: 'Technical notes and translations — written for myself, and for anyone puzzling over the same questions.',
+    blogSub: 'Thoughts on products, startups, people, and the environments we create.',
     blogEmpty: 'No posts yet.',
     backLabel: '← Back',
     more: 'All posts →',
@@ -121,5 +118,5 @@ export const hasCounterpart = (path: string): boolean => {
     : path;
   const normalized = zhPath.replace(/\/+$/, '') || '/';
   return ['/', '/work', '/projects', '/blog'].includes(normalized)
-    || /^\/blog\/[^/]+$/.test(normalized);
+    || /^\/(blog|projects)\/[^/]+$/.test(normalized);
 };
